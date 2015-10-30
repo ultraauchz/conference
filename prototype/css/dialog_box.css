@@ -1,0 +1,42 @@
+#dialog {
+	background: rgb(255, 255, 255); padding: 10px; width: 850px; position: absolute; z-index: 200;
+}
+#dialog-header {
+	padding: 3px 6px 7px; width: 838px; height: 14px; font-size: 14px; font-weight: bold; display: block; position: relative;
+}
+#dialog-title {
+	float: left;
+}
+#dialog-close {
+	background: url("image/dialog_close.gif") no-repeat; margin: 3px 3px 0px 0px; width: 11px; height: 11px; float: right; cursor: pointer;
+}
+#dialog-content {
+	padding: 6px; height: 380px; color: rgb(102, 102, 102); font-size: 13px; display: block;
+}
+#dialog-mask {
+	background: rgb(255, 255, 255); left: 0px; top: 0px; width: 100%; filter: alpha(opacity=85); position: absolute; z-index: 100; min-height: 100%; opacity: 0.85;
+}
+.error {
+	background: url("image/prompt_bg.jpg") no-repeat right bottom rgb(255, 255, 255); border-width: medium 1px 1px; border-style: none solid solid; border-color: currentColor rgb(146, 73, 73) rgb(146, 73, 73);
+}
+.errorheader {
+	background: url("image/error_header.gif") repeat-x; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(146, 73, 73) rgb(146, 73, 73) currentColor; color: rgb(111, 44, 44);
+}
+.warning {
+	background: url("image/warning_bg.jpg") no-repeat right bottom rgb(255, 255, 255); border-width: medium 1px 1px; border-style: none solid solid; border-color: currentColor rgb(79, 109, 129) rgb(79, 109, 129);
+}
+.warningheader {
+	background: url("image/prompt_header.gif") repeat-x; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(79, 109, 129) rgb(79, 109, 129) currentColor; color: rgb(79, 109, 129);
+}
+.success {
+	background: url("image/success_bg.jpg") no-repeat right bottom rgb(255, 255, 255); border-width: medium 1px 1px; border-style: none solid solid; border-color: currentColor rgb(96, 161, 116) rgb(96, 161, 116);
+}
+.successheader {
+	background: url("image/success_header.gif") repeat-x; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(96, 161, 116) rgb(96, 161, 116) currentColor; color: rgb(60, 127, 81);
+}
+.prompt {
+	background: url("image/prompt_bg.jpg") no-repeat right bottom rgb(255, 255, 255); border-width: medium 1px 1px; border-style: none solid solid; border-color: currentColor rgb(79, 109, 129) rgb(79, 109, 129);
+}
+.promptheader {
+	background: url("image/prompt_header.gif") repeat-x; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(79, 109, 129) rgb(79, 109, 129) currentColor; color: rgb(53, 84, 104);
+}
