@@ -31,7 +31,7 @@ class User_Types extends Admin_Controller {
 		$this->template->build("user_types/index",$data);
 	}
 	
-	public function form($id=null) {
+	public function form($id=null) {		
 		$data['menu_id'] = $this->menu_id;
 		$data['modules_name'] = $this->modules_name;
 		$data['current_user'] = $this->user;
@@ -58,11 +58,11 @@ class User_Types extends Admin_Controller {
 				$action = $_POST['id'] > 0 ? 'UPDATE' : 'CREATE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->title.' User Type Detail');
 				$sperm['user_type_id'] = $data->id;
-				$this->db->query("DELETE FROM acm_user_type_permission WHERE user_type_id = ".$data->id);
+				$this->db->query("DELETE FROM user_type_permissions WHERE user_type_id = ".$data->id);
 				$menus = new System_Menu();
 				$menus->where('url IS NOT NULL')->order_by("title","ASC")->get();
 				foreach($menus as $key=>$menu_item):
-					$sperm['menu_id'] = $menu_item->id;
+					$sperm['system_menu_id'] = $menu_item->id;
 					$sperm['can_view'] = @$_POST['chk_'.$menu_item->id.'_view_access'];
 					$sperm['can_create'] = @$_POST['chk_'.$menu_item->id.'_create_access'];
 					$sperm['can_delete'] = @$_POST['chk_'.$menu_item->id.'_delete_access'];
@@ -82,8 +82,8 @@ class User_Types extends Admin_Controller {
 				$data = new User_Type($id);
 				$action = 'DELETE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->title.' User Type Detail');
-				$this->db->query("DELETE FROM acm_user_type_permission WHERE user_type_id = ".$data->id);
-				$this->db->query("DELETE FROM acm_user_type WHERE id = ".$data->id);
+				$this->db->query("DELETE FROM user_type_permissions WHERE user_type_id = ".$data->id);
+				$this->db->query("DELETE FROM user_types WHERE id = ".$data->id);
 			}
 		}
 		redirect("admin/settings/user_types");

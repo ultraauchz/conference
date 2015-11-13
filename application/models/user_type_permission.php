@@ -4,7 +4,7 @@
  */
 class User_Type_Permission extends ORM {
 	
-	var $table = "acm_user_type_permission";
+	var $table = "user_type_permissions";
 
 	var $has_many = array("user_type","user");
 	

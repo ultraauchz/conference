@@ -6,7 +6,7 @@
     <base href="<?php echo base_url()?>" ></base>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ASEAN CULTURAL MAPPING ::: BackEnd</title>
+    <title>KMDDC Conference System</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -53,7 +53,7 @@
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong>ASEAN CULTURAL MAPPING</strong>
+						<strong>KMDDC Conference System</strong>
 					</div>
 					<div class="panel-body">
 						<form role="form" action="admin/signin/action" method="POST">

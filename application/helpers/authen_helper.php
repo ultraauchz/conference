@@ -108,21 +108,21 @@ if(!function_exists("permission")) {
 		$CI =& get_instance();		
 		if($id > 0 ){
 			$foo = new User_Type_Permission($id);	
-		}else if($user_type_id > 0 && $is_parent == null){
+		}else if($user_type_id > 0 && $is_parent == null){			
 			$foo = new User_Type_Permission();
-			$foo->where('menu_id = '.$menu_id.' AND user_type_id = '.$user_type_id)->get();	
+			$foo->where('system_menu_id = '.$menu_id.' AND user_type_id = '.$user_type_id)->get();	
 		}else if($is_parent=='y'){
 			$sql = "SELECT
 						count(*)nrec
 					FROM
-						acm_user_type_permission
+						user_type_permissions
 					WHERE
 						user_type_id = ".$user_type_id."
-					AND menu_id IN (
+					AND system_menu_id IN (
 						SELECT
 							id
 						FROM
-							acm_system_menus
+							system_menus
 						WHERE
 							parent_id = ".$menu_id."
 					)

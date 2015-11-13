@@ -39,6 +39,7 @@ $current_user = user();
 		if($mitem->have_child =='y')
 		{
 			$perm = get_permission($mitem->id,$current_user->user_type_id, null,'y');
+			$perm = 1;
 			if($perm > 0)
 			{    
    	?>

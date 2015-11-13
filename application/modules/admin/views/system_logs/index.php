@@ -9,23 +9,10 @@
 			</div><!-- /.box-header -->
 			<div style="float:left;width:100%;">
 				<div class="col-xs-3">
-			  	<label for="country_id">Country</label> 			  	
-			  	<?php
-			  	if( $perm->can_access_all == 'y' ){
-			  		echo form_dropdown("country_id",get_option("id","country_name","acm_country"," ORDER BY country_name ASC"),@$_GET["country_id"],"class=\"form-control\" style=\"display:inline;\" ","-- Select Country --","");	
-			  	}else{
-			  		$ext_condition = $perm->can_access_all == 'y' ? '' : " WHERE id = ".$current_user->organization->country_id;
-			  		echo form_dropdown("country_id",get_option("id","country_name","acm_country",$ext_condition." ORDER BY country_name ASC"),@$_GET["country_id"],"class=\"form-control\" style=\"display:inline;\" ");
-			  	}			  	
-			  	?>
-				</div>
-				<div class="col-xs-3">
 			  	<label for="organization_id">Organization</label> 
 			  	<span class="span_org_data">
 			  	<?php 
-			  		$country_id = $perm->can_access_all != 'n' && @$_GET['country_id'] > 0 ? $current_user->organization->country_id : @$_GET['country_id'];
-			  		$ext_condition = $country_id > 0 ? " WHERE country_id = ".$country_id : "";
-			  		echo form_dropdown('org_id',get_option('id','org_name','acm_organization',$ext_condition." ORDER BY org_name ASC "),@$_GET['org_id'],'class="form-control"','-- all organization --');
+			  		echo form_dropdown('org_id',get_option('id','org_name','organizations'," ORDER BY org_name ASC "),@$_GET['org_id'],'class="form-control"','-- all organization --');
 			  	?>
 			  	</span>
 				</div>
@@ -73,8 +60,8 @@
 							<td><?php echo $item->log_date;?></td>					
 							<td><?php echo $item->user->titulation.' '.$item->user->firstname.' '.$item->user->lastname;?></td>
 							<td><?php echo $item->user->organization->org_name;?></td>
-							<td><?php echo $item->user->organization->country->country_name;?></td>
-							<td><?php echo $item->menu->title;?></td>
+							<td></td>
+							<td><?php echo $item->system_menu->title;?></td>
 							<td><?php echo $item->action;?></td>
 							<td><?php echo $item->description;?></td>							
 						</tr>

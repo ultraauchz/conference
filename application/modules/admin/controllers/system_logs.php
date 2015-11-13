@@ -27,7 +27,6 @@ class System_Logs extends Admin_Controller {
 		}
 		if(@$_GET['search']!='')$data['result']->where_related("user","firstname LIKE '%".$_GET['search']."%'");
 		if(@$_GET['org_id']!='')$data['result']->where_related("user","org_id = ".$_GET['org_id']);
-		if(@$_GET['country_id']!='')$data['result']->where_related("user","org_id in (select id from acm_organization where country_id=".$_GET['country_id'].")");		
 		$data["result"]->order_by("log_date","DESC")->get_page();
 		$data['no'] = (empty($_GET['page']))?0:($_GET['page']-1)*20;
 		$data['page'] = (empty($_GET['page']))? 1 : $_GET['page'];

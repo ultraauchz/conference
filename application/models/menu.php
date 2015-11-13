@@ -1,15 +1,11 @@
 <?php
-/**
- * Menu Model
- * เมนู
- */
 class Menu extends ORM {
 
-	var $table = "acm_system_menus";
+	var $table = "system_menus";
 
 	// var $has_one = array();
 
-	 var $has_many = array('system_log');
+	 var $has_many = array('system_logs');
 	
 	function __construct($id=null) {
 		parent::__construct($id);

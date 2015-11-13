@@ -1,13 +1,9 @@
 <?php
-/**
- * Ebook Model
- * หนังสืออิเล็กทรอนิกส์ หน้าแรก
- */
 class Log extends ORM {
 
-	public $table = "acm_system_log";
+	public $table = "system_logs";
 
-	public $has_one = array("user");
+	public $has_one = array("users");
 
     function __construct($id = NULL)
 	{

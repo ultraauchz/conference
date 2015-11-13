@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'mysql1.favouritehosting.com';
-$db['default']['username'] = 'c1acm';
-$db['default']['password'] = 'acm@2015';
-$db['default']['database'] = 'c1acm';
+$db['default']['username'] = 'c20conference';
+$db['default']['password'] = 'C0nF3R3nce*';
+$db['default']['database'] = 'c20conference';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

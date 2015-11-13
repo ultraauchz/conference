@@ -13,9 +13,9 @@
 		              <label for="exampleInputEmail1">User Type</label>
 		              <?php
 		              if($modules_name=='profile'){
-		              	echo form_dropdown('user_type_id',get_option('id','title','acm_user_type'),@$value->user_type_id,'class="form-control" disabled="disabled"','--select user type--');
+		              	echo form_dropdown('user_type_id',get_option('id','title','user_types'),@$value->user_type_id,'class="form-control-other" disabled="disabled"','--select user type--');
 		              }else{
-		              	echo form_dropdown('user_type_id',get_option('id','title','acm_user_type'),@$value->user_type_id,'class="form-control"','--select user type--');
+		              	echo form_dropdown('user_type_id',get_option('id','title','user_types'),@$value->user_type_id,'class="form-control-other"','--select user type--');
 					  }
 		              ?>		              
 	            </div>
@@ -57,9 +57,9 @@
 		              if($modules_name=='profile'){
 		              	echo $value->organization->org_name;
 		              }else{
-		              	$country_id = $perm->can_access_all != 'n' && @$_GET['country_id'] > 0 ? $current_user->organization->country_id : @$value->country_id;
-					  	$ext_condition = $country_id > 0 ? " WHERE country_id = ".$country_id : ""; 
-		              	echo form_dropdown('org_id',get_option('id','org_name','acm_organization', $ext_condition." ORDER BY org_name ASC "),@$value->org_id,'class="form-control required"','--select organization--');
+		              	$org_id = $perm->can_access_all != 'n'  ? $current_user->org_id : @$value->org_id;
+					  	$ext_condition = $org_id > 0 ? " WHERE $org_id = ".$org_id : ""; 
+		              	echo form_dropdown('org_id',get_option('id','org_name','organizations', $ext_condition." ORDER BY org_name ASC "),@$value->org_id,'class="form-control required" style="padding:0;border:0px;"','--select organization--');
 					  }
 		              ?>	
 	            </div>

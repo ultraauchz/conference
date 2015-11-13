@@ -82,6 +82,8 @@
 
 <!-- AdminLTE for demo purposes -->
 <!--<script src="medias/js/demo.js" type="text/javascript"></script>-->
+<link href="js/select2/select2.css" rel="stylesheet" type="text/css" />
+<script src="js/select2/select2.js" type="text/javascript"></script>
 
 <!-- DATA TABES SCRIPT -->
 <script src="medias/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
@@ -111,6 +113,8 @@
 				return false;
 			}
 		})
+		
+		$("select.form-control-other").select2();
 	})
 </script>
 <style>
