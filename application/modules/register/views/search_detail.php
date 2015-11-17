@@ -11,16 +11,19 @@
 	            <div class="form-group">
 		              <label for="exampleInputFullname">ชื่อ - นามสกุล</label><br>
 		              <div class="col-xs-5" style="padding-left:0px;">
-		              	<input type="text" class="form-control" name="firstname" placeholder="ชื่อ" value=""> 
+		              	<input type="text" class="form-control" name="firstname" placeholder="ชื่อ" value="" required="required"> 
 		              </div>
 		              <div class="col-xs-6">
-		              	<input type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="">
+		              	<input type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="" required="required">
 		              </div>
 		              <div class="clearfix"></div> 
 	            </div>	            
 	            <hr>
 	            <div class="form-group">
-	            	  CAPTCHA
+	            	  <label for="exampleInputFullname">กรุณาป้อนข้อมูลที่ปรากฎด้านล่าง</label><br>
+	            	  <input type="text" name="captcha" class="form-control" style="width:100px;" required="required">
+	            	  <br>
+	            	  <img src="home/captcha">	            	  
 		              <div class="clearfix"></div>              
 	            </div>
 	            <hr>
