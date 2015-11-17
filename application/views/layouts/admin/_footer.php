@@ -1,4 +1,4 @@
 <div class="pull-right hidden-xs">
 </div>
-<strong>Copyright &copy; 2015 ::: Tel.  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Email.  ::: <a href="http://www.aseanculturalmapping.com">ASEAN Cultural Mapping</a>.</strong> All rights reserved.
+<strong>Copyright &copy; 2015 ::: สำนักจัดการความรู้ กรมควบคุมโรค กระทรวงสาธารณสุข ถนนติวานนท์ อ.เมือง จ.นนทบุรี 11000 โทร 0-2590-3251-3 โทรสาร 0-2590-3251-3 ต่อ 16 , 02-965-9610</strong>
 

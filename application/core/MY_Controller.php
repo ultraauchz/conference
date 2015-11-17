@@ -6,7 +6,7 @@ class Base_Controller extends MX_Controller {
  
     public function __construct() {
         parent::__construct();
-        $this->template->title("ASEAN Cultural Mapping");
+        $this->template->title(":: ระบบลงทะเบียนออนไลน์ :: สำนักจัดการความรู้ กรมควบคุมโรค");
 		$this->template->set_layout("default/layout");
 		$this->template->append_metadata(js_notify());
 		
@@ -33,7 +33,7 @@ class Admin_Controller extends MX_Controller {
  
     public function __construct() {
         parent::__construct();
-        $this->template->title("ASEAN Cultural Mapping");
+        $this->template->title(":: ระบบลงทะเบียนออนไลน์ :: สำนักจัดการความรู้ กรมควบคุมโรค");
 		$this->template->set_layout("admin/layout");
 		$this->template->append_metadata(js_notify());
 		

@@ -6,108 +6,78 @@ class Reports extends Admin_Controller {
 	
 	function __construct() {
 		parent::__construct();
-		if(!permission("reports","extra")) {
+		parent::__construct();		
+		$this->modules_name = 'register_datas';
+		$this->current_user = user();		
+	}
+	
+	public function report1(){
+		$menu_id = 28;
+		$data['menu_id'] = $menu_id;
+		$perm = current_user_permission($menu_id);
+		$data['perm'] = $perm;
+		if($perm->can_view!='y'){
 			redirect("admin");
-		}
-	}
-	
-	public function index() {
-		if(permission("reports","extra")) {
-		$data["variable"] = new Result();
-
-		if(@$_GET["r"]) {
-			$data["variable"]->where("result_type_id",$_GET["r"]);
-		}
-
-		if(@$_GET["d"]) {
-			$data["variable"]->where("deposits",$_GET["d"]);
-		}
-
-		$data["variable"]->order_by("id","DESC")->get_page();
-		$this->template->build("reports/index",$data);
-		} else {
-			redirect("admin");
-		}
-	}
-	
-	public function form($id=null) {
-		if(permission("reports","extra")) {
-			$data["value"] = new Result($id);
-			$this->template->build("reports/form",$data);
-		} else {
-			redirect("admin/reports");
-		}
-	}
-	
-	public function save($id=null) {
-		if(permission("reports","extra")) {
-			if($_POST) {
-				
-				if(@empty($_POST["import_time"])) {
-					$_POST["import_time"] = date("Y-m-d");
-				}
-				
-				$data = new Result($id);
-				$data->from_array($_POST);
-				$data->save();
-				
-				if(@$_POST["file_path"]) {
-					$data->file_size = @filesize($data->file_path);	
-					$data->save();
-				}
-				
-				$type = ($id)?'edit':'add'; // for logs.
-				save_logs($type, $data->id);
-			}
-		}
-		redirect("admin/reports");
-	}
-	
-	public function delete($id) {
-		if(permission("reports","extra")) {
-			if($id) {
-				$data = new Result($id);
-				$data->delete();
-				
-				save_logs('delete', $id);
-			}
-		}
-		redirect("admin/reports");
-	}
-	
-	public function get_calendar() {
-		$date_start = date('Y-m-d', $_GET['start']);
-		$date_end = date('Y-m-d', $_GET['end']);
-		$variable = new Result();
-		$variable->get();
-		
-		$day = (24*60*60*1000);
-		foreach ($variable as $key => $value) {
-			$title = null;
-			$color = null;;
-			switch ($value->result_type_id) {
-				case 1:
-					$title = "รายสัปดาห์";
-					$color = "#337AB7";
-					break;
-				case 2:
-					$title = "รายเดือน";
-					$color = "#f0AD4E";
-					break;
+		}else{
+			$query = "SELECT
+						id,
+						prefix_code,
+						sortorder,
+						org_name,
+	   					max_participants,
+					  	(select count(*) from register_datas where org_id = organizations.id and firstname is NOT NULL)registered 
+					  FROM organizations WHERE 1=1 ";
+			$query.= @$_GET['org_id'] > 0 ? " AND id = ".$_GET['org_id'] : '';
+			$query.= ' ORDER BY prefix_code,sortorder ASC  ';
+			$data['result'] = $this->db->query($query)->result();
+			switch(@$_GET['act']){
+				case 'print';
+					$this->load->view('report1/print',$data);
+				break;
+				case  'export';
+					$filename= "รายงานสรุปจำนวนผู้ลงทะเบียนแต่ล่ะหน่วยงาน ณ วันที่ ".date("Y-m-d_H_i_s").".xls";
+					header("Content-Disposition: attachment; filename=".$filename);
+					$this->load->view('report1/print',$data);
+				break;
 				default:
-					$title = "รายวัน";
-					$color = "#5cb85c";
-					break;
-			}
-			$data_[] = array(
-				"title"		=> $value->title,
-				"start"	=> date("Y-m-d", strtotime($value->import_time)),
-				"url"		=> "reports/views/".$value->id,
-				"color"	=> $color
-			);
+					$this->template->build('report1/index',$data);		
+				break;	
+			}			
 		}
-		
-		echo json_encode(@$data_);
 	}
 	
+	public function report2(){
+		$menu_id = 27;
+		$data['menu_id'] = $menu_id;
+		$perm = current_user_permission($menu_id);
+		$data['perm'] = $perm;
+		if($perm->can_view!='y'){
+			redirect("admin");
+		}else{
+			$query = "SELECT
+						id,
+						prefix_code,
+						sortorder,
+						org_name,
+	   					max_participants,
+					  	(select count(*) from register_datas where org_id = organizations.id and firstname is NOT NULL)registered 
+					  FROM organizations WHERE 1=1 ";
+			$query.= @$_GET['org_id'] > 0 ? " AND id = ".$_GET['org_id'] : '';
+			$query.= ' ORDER BY prefix_code,sortorder ASC  ';
+			$data['result'] = $this->db->query($query)->result();
+			switch(@$_GET['act']){
+				case 'print';
+					$this->load->view('report2/print',$data);
+				break;
+				case  'export';
+					$filename= "รายงานสรุปจำนวนผู้ลงทะเบียนแต่ล่ะหน่วยงาน ณ วันที่ ".date("Y-m-d_H_i_s").".xls";
+					header("Content-Disposition: attachment; filename=".$filename);
+					$this->load->view('report2/print',$data);
+				break;
+				default:
+					$this->template->build('report2/index',$data);		
+				break;	
+			}			
+		}
+	}
 }

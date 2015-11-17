@@ -19,23 +19,9 @@ class Home extends Base_Controller {
 		}
 	}
 	
-	//	เปลี่ยนขนาด fonts
-	public function fonts($size) {
-		$this->session->set_userdata("fontsize",$size);
-		redirect($_SERVER["HTTP_REFERER"]);
-	}
-
 	public function index() {
-		$data["value"] = new Coverpage();
-		$data["value"]->where("status",1)->where("start_date <=",date("Y-m-d"))->where("end_date >=",date("Y-m-d"))->order_by('orders','ASC')->order_by("id","DESC")->get(1);		
-		if($data["value"]->id && !$this->session->userdata("coverpage")) {
-			$this->session->set_userdata("coverpage",TRUE);
-			$this->load->view("coverpage",$data);
-		} else {
-			
-			$this->template->set_layout("default/index");
-			$this->template->build("index");	
-		}
+		//$this->template->set_layout("default/index");
+		$this->template->build("index");	
 	}
 
 	public function inc_footer() {
