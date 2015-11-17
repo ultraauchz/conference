@@ -9,7 +9,7 @@
 			
 			<div class="box-body">
 				<div class="form-group">
-		              <label for="exampleInputTitle">คำนำหน้า</label><br>
+		              <label for="exampleInputTitle">คำนำหน้า <span style="color:#f00;">*</span></label><br>
 		              <div class="col-xs-4" style="padding-left:0px;">
 		              <?php
 		              	echo form_dropdown('titulation_id',get_option('id','titulation_title','titulations'),'','class="form-control-other"','--ระบุคำนำหน้าชื่อ--');
@@ -23,7 +23,7 @@
 	            </div>	
 	            <hr>    	            
 	            <div class="form-group">
-		              <label for="exampleInputFullname">ชื่อ - นามสกุล</label><br>
+		              <label for="exampleInputFullname">ชื่อ - นามสกุล <span style="color:#f00;">*</span></label><br>
 		              <div class="col-xs-5" style="padding-left:0px;">
 		              	<input type="text" class="form-control" name="firstname" placeholder="ชื่อ" value=""> 
 		              </div>
@@ -34,7 +34,7 @@
 	            </div>	            
 	            <hr>
 	            <div class="form-group">
-	            	<label for="exampleInputGender">เพศ</label><br>
+	            	<label for="exampleInputGender">เพศ <span style="color:#f00;">*</span></label><br>
 		              <div class="col-xs-5">
 		              	<input type="radio" name="gender" class="gender_male" value="m" > ชาย
 		              	<input type="radio" name="gender" class="gender_female" value="f" >หญิง 
@@ -43,16 +43,16 @@
 	            </div>
 	            <hr>
 	            <div class="form-group">
-		              <label for="exampleInputPosition">ตำแหน่ง</label>
+		              <label for="exampleInputPosition">ตำแหน่ง <span style="color:#f00;">*</span></label>
 		              <input type="text" class="form-control" name="position" value="">
 		              <div class="clearfix"></div>		              
 	            </div>
 	            <hr>
 	            <div class="form-group">
-		              <label for="exampleInputOrg">หน่วยงาน</label><br>
+		              <label for="exampleInputOrg">หน่วยงาน <span style="color:#f00;">*</span></label><br>
 		              <div class="col-xs-5" style="padding-left:0px;">
 		              <?php							
-		              		echo form_dropdown('org_id',get_option('id','org_name','organizations'),'','class="form-control-other" required="required"','--กรุณาระบุหน่วยงาน--');
+		              		echo form_dropdown('org_id',get_option('id','org_name','organizations'),'','class="form-control-other"','--กรุณาระบุหน่วยงาน--');
 		              ?>
 		              </div>
                       <div class="col-xs-2" style="padding:7px 1px;">อื่น ๆ โปรดระบุ</div>
@@ -63,13 +63,13 @@
 	            </div>
 	            <hr>
 	            <div class="form-group">
-		              <label for="exampleInputMobileNo">โทรศัพท์มือถือ</label>
+		              <label for="exampleInputMobileNo">โทรศัพท์มือถือ <span style="color:#f00;">*</span></label>
 		              <input type="text" class="form-control" name="mobile_no" placeholder="ตัวอย่าง 0851234567" value="">
 		        	  <div class="clearfix"></div>       		              
 	            </div>
 	            <hr>          
 	            <div class="form-group">
-		              <label for="exampleInputEmail1">อีเมล์</label>
+		              <label for="exampleInputEmail1">อีเมล์ <span style="color:#f00;">*</span></label>
 		              <input type="email" class="form-control" name="email" value="">
 		              <div class="clearfix"></div> 		              
 	            </div>
@@ -85,16 +85,16 @@
 	            <hr>
 				<div id="dvRest">	           
 	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">โรงแรมที่เข้าพัก</label>
+		              <label for="exampleInputRestType">โรงแรมที่เข้าพัก <span style="color:#f00;">*</span></label>
 		              <br>
 		              <div class="col-xs-5" style="padding-left:0px;">
-		              <?php echo form_dropdown('hotel_id',get_option('id','hotel_name','hotels'),'','class="form-control-other" required="required"','--โปรดระบุโรงแรม-');?>
+		              <?php echo form_dropdown('hotel_id',get_option('id','hotel_name','hotels'),'','class="form-control-other"','--โปรดระบุโรงแรม-');?>
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>
 	            <hr>
 	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">คืนที่เข้าพัก</label>
+		              <label for="exampleInputRestType">คืนที่เข้าพัก <span style="color:#f00;">*</span></label>
 		              <br>
 		              <div class="col-xs-5" style="padding-left:0px;">
 		              <div class="input-group">
@@ -118,7 +118,7 @@
 	            </div>
 	            <hr>	            
 	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">คืนที่ออกจากที่พัก</label>
+		              <label for="exampleInputRestType">คืนที่ออกจากที่พัก <span style="color:#f00;">*</span></label>
 		              <br>
 		              <div class="col-xs-5" style="padding-left:0px;">
 		              <div class="input-group">
@@ -143,7 +143,7 @@
 	            <hr>	            
 	            </div>
 	            <div class="form-group">
-		              <label for="exampleInputRestType">อาหาร</label>
+		              <label for="exampleInputRestType">อาหาร <span style="color:#f00;">*</span></label>
 		              <br>
 		              <input type="radio" name="food_type" value="1" > ทั่วไป 
 		              &nbsp;&nbsp;&nbsp;		              
@@ -168,7 +168,125 @@
 	</div>
 </div>
 </section>
+
+
+<script type="text/javascript" src="js/validate/jquery.validate.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="js/validate/jquery.validate.css" />
+
 <script type="text/javascript">
+      $(function(){
+            $('form').submit(function(){ 
+                  //alert('submit'); return false;
+            });
+            
+            
+            $('form').validate({
+                  rules: {
+                        titulation_id: { required:true },
+                        firstname: { required:true },
+                        lastname: { required:true },
+                        gender: { required:true },
+                        position: { required:true },
+                        org_id: { required:true },
+                        mobile_no: { required:true },
+                        email: { required:true },
+                        rest_type: { required:true },
+                        food_type: { required:true }
+                  },
+                  messages: {
+                        titulation_id: { required:"กรุณาระบุ" },
+                        firstname: { required:"กรุณาระบุ" },
+                        lastname: { required:"กรุณาระบุ" },
+                        gender: { required:"กรุณาระบุ" },
+                        position: { required:"กรุณาระบุ" },
+                        org_id: { required:"กรุณาระบุ" },
+                        mobile_no: { required:"กรุณาระบุ" },
+                        email: { required:"กรุณาระบุ" },
+                        rest_type: { required:"กรุณาระบุ" },
+                        food_type: { required:"กรุณาระบุ" }
+                  },
+                  errorPlacement: function(error, element) {
+                        if (element.attr('name') == 'gender' || element.attr('name') == 'rest_type' || element.attr('name') == 'food_type') {
+                              $("[name="+element.attr('name')+"]").parent().append(error);
+                        } else {
+                              error.insertAfter(element);
+                        }
+                  }
+            });
+            
+            
+            $('form').on('submit', function(){
+                  breakSubmit = 0;
+                  
+                  
+                  //Titulation is others.
+                  optionText = $('[name=titulation_id] option:checked').text();
+                  if(optionText == 'อื่นๆ' || optionText == 'อื่น ๆ') {
+                        if(!$('[name=titulation_other]').val()) {
+                              $('[name=titulation_other]').parent().append('<label for="titulation_other" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=titulation_other]').on('keyup',function(){
+                              $('label[for=titulation_other]').remove();
+                        });
+                  }
+                  
+                  
+                  //Organization is others.
+                  optionText = $('[name=org_id] option:checked').text();
+                  if(optionText == 'อื่นๆ' || optionText == 'อื่น ๆ') {
+                        if(!$('[name=org_other]').val()) {
+                              $('[name=org_other]').parent().append('<label for="org_other" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=org_other]').on('keyup',function(){
+                              $('label[for=org_other]').remove();
+                        });
+                  }
+                  
+                  
+                  //Rest_type validate
+                  if($('[name=rest_type]:checked').val() == 'y') {
+                        //--โรงแรมที่เข้าพัก
+                        if(!$('[name=hotel_id]').val()) {
+                              $('[name=hotel_id]').parent().append('<label for="hotel_id" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=hotel_id]').on('change',function(){
+                              $('label[for=hotel_id]').remove();
+                        });
+                        
+                        //--คืนที่เข้าพัก
+                        checkIn = (!$('[name=checkin_day]').val() || !$('[name=checkin_month]').val() || !$('[name=checkin_year]').val());
+                        if(!checkIn) {
+                              $('[name=checkin_year]').parent().parent().append('<label for="checkin" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=checkin_day], [name=checkin_month], [name=checkin_year]').on('change',function(){
+                              $('label[for=checkin]').remove();
+                        });
+                        
+                        //--คืนที่ออกจากที่พัก
+                        checkOut = (!$('[name=checkout_day]').val() || !$('[name=checkout_month]').val() || !$('[name=checkout_year]').val());
+                        if(!checkOut) {
+                              $('[name=checkout_year]').parent().parent().append('<label for="checkout" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=checkout_day], [name=checkout_month], [name=checkout_year]').on('change',function(){
+                              $('label[for=checkout]').remove();
+                        });
+                  }
+                  
+                  if(breakSubmit == 1) {
+                        return false;
+                  }
+            });
+      });
+      
+</script>
+
+<script type="text/javascript">
+      
 	$(document).ready(function(){
 		<?php if(@$value->rest_type=='y') echo 'show_rest_layout(true);'; else echo 'show_rest_layout(false);';?>
 		 
@@ -206,4 +324,5 @@
 			});	
 		})
 	})
+      
 </script>
