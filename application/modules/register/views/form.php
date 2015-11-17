@@ -175,11 +175,6 @@
 
 <script type="text/javascript">
       $(function(){
-            $('form').submit(function(){ 
-                  //alert('submit'); return false;
-            });
-            
-            
             $('form').validate({
                   rules: {
                         titulation_id: { required:true },
