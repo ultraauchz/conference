@@ -22,6 +22,7 @@ class Register_datas extends Admin_Controller {
 		
 		$data["variable"] = new Register_data();
 		$data['variable']->where('register_type = 1');
+		$data['configurations'] = new Configuration(1);
 		//echo $data["variable"]->check_last_query();
 		//if(@$_GET['search']!='')$data["variable"]->where("firstname LIKE '%".$_GET['search']."%' OR lastname LIKE '%".$_GET['search']."%' ");
 		//if(@$_GET['org_id']>0)$data["variable"]->where("org_id = ".$_GET['org_id']);
@@ -51,6 +52,7 @@ class Register_datas extends Admin_Controller {
 		$data['current_user'] = $this->current_user;
 		$data['perm'] = $this->perm;
 		$data["value"] = new Register_data($id);
+		$data['configurations'] = new Configuration(1);
 		if($id > 0){
 			if($data['value'] -> checkin_date > 0){
 			$data['checkin_day'] = substr($data['value'] -> checkin_date, 8, 2);
@@ -102,7 +104,7 @@ class Register_datas extends Admin_Controller {
 					$data -> checkin_date = $checkin_date;
 					$checkout_date = $_POST['checkout_year'] . '-' . $_POST['checkout_month'] . '-' . $_POST['checkout_day'].' '.$_POST['checkout_hour'].":".$_POST['checkout_minute'];;
 					$data -> checkout_date = $checkout_date;							
-					$data->rest_with = $_POST['rest_with'];
+					$data->rest_with = @$_POST['rest_with'];
 				}else{
 					$data->hotel_id = null;
 					$data->checkin_date = null;
@@ -112,11 +114,11 @@ class Register_datas extends Admin_Controller {
 				if($_POST['id']==''){
 					$data->ip_address = $_SERVER['REMOTE_ADDR'];
 					$data->register_date = date("Y-m-d H:i:s");
-					$data->creat_by = $this->current_user->id;
-					$data->creat_date = date("Y-m-d H:i:s");
+					$data->created_by = $this->current_user->id;
+					$data->created_date = date("Y-m-d H:i:s");
 				}else{
-					$data->updat_by = $this->current_user->id;
-					$data->update_date = date("Y-m-d H:i:s");
+					$data->updated_by = $this->current_user->id;
+					$data->updated_date = date("Y-m-d H:i:s");
 				}
 				if($data->register_code == ''){
 					$org = new Organization($_POST['org_id']);

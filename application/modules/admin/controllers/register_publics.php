@@ -94,7 +94,7 @@ class Register_publics extends Admin_Controller {
 					$data->checkin_date = $checkin_date;
 					$checkout_date = $_POST['checkout_year'].'-'.$_POST['checkout_month'].'-'.$_POST['checkout_day'];
 					$data->checkout_date = $checkout_date;							
-					$data->rest_with = $_POST['rest_with'];
+					$data->rest_with = @$_POST['rest_with'];
 				}else{
 					$data->hotel_id = null;
 					$data->checkin_date = null;
@@ -104,11 +104,11 @@ class Register_publics extends Admin_Controller {
 				if($_POST['id']==''){
 					$data->ip_address = $_SERVER['REMOTE_ADDR'];
 					$data->register_date = date("Y-m-d H:i:s");
-					$data->creat_by = $this->current_user->id;
-					$data->creat_date = date("Y-m-d H:i:s");
+					$data->created_by = $this->current_user->id;
+					$data->created = date("Y-m-d H:i:s");
 				}else{
-					$data->updat_by = $this->current_user->id;
-					$data->update_date = date("Y-m-d H:i:s");
+					$data->updated_by = $this->current_user->id;
+					$data->updated = date("Y-m-d H:i:s");
 				}
 				if($data->register_code == ''){
 					$register_code = $data -> rest_type == 'y' ? 'E02' : 'E01';

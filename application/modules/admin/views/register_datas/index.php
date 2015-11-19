@@ -39,8 +39,19 @@
 			</div>
 			</form>
 		<div class="box-body" style="min-height:500px;">
-			<?php if(@$_GET['org_id']!=''): ?>
+			<?php if(@$_GET['org_id']!=''): ?>			
 			<?php echo $variable->pagination()?>
+			<?php if($configurations->internal_status!='y' && $perm->can_access_all != 'y'){ ?>
+				<div>
+					<ul class="pagination" style="background:#fce8e8;text-align:center;">
+						<li>
+							<span style="border:0px;margin-top:2px;background:none;text-align:center;">
+								ขณะนี้การระบบได้ทำการปิดการลงทะเบียนในส่วนของบุคคลากรของกรมอยู่ เจ้าหน้าที่หน่วยงานจะไม่สามารถลงทะเบียนได้
+							</span>
+						</li>
+					</ul>
+				</div>
+			<?php } ?>
 			<table id="example1" class="table table-bordered table-striped table-hover table_data">
 			    <thead>
 			      <tr>
@@ -142,10 +153,12 @@
 			      </tr>
 			    </tfoot>
 			</table>
+			<?php if($configurations->internal_status=='y'||$perm->can_access_all == 'y'){?>
 			<?php if($perm->can_create=='y' && $n_register_number < $org->max_participants){?>
 			<div style="text-align:right;">
 			  	<a href="admin/<?php echo $modules_name; ?>/form" class="btn btn-info"><li class="fa fa-plus"></li> Create new</a>
 			</div>
+			<?php } ?>
 			<?php } ?>
 			<?php echo $variable->pagination()?>
 			<?php endif; ?>
