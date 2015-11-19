@@ -1,10 +1,10 @@
 <?php
-class Register_datas extends Admin_Controller {
+class Register_publics extends Admin_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->menu_id = 30;
-		$this->modules_name = 'register_datas';
+		$this->menu_id = 31;
+		$this->modules_name = 'register_publics';
 		$this->current_user = user();
 		$this->perm = current_user_permission($this->menu_id);
 		if($this->perm->can_view!='y'){
@@ -21,28 +21,21 @@ class Register_datas extends Admin_Controller {
 		$data['page'] = (empty($_GET['page']))? 1 : $_GET['page'];
 		
 		$data["variable"] = new Register_data();
-		$data['variable']->where('register_type = 1');
-		//echo $data["variable"]->check_last_query();
-		//if(@$_GET['search']!='')$data["variable"]->where("firstname LIKE '%".$_GET['search']."%' OR lastname LIKE '%".$_GET['search']."%' ");
-		//if(@$_GET['org_id']>0)$data["variable"]->where("org_id = ".$_GET['org_id']);
+		$data['variable']->where('register_type = 2');
 		
-		if($this->perm->can_access_all != 'y')
-		 {
-		 	$_GET['org_id'] = $this->current_user->org_id;
-		 	$data["variable"]->where("org_id = ".$this->current_user->org_id." ");
-		 }
-		if(@$_GET['org_id'] != '') 
-		 {
-		 	$data["variable"]->where("org_id = ".$_GET['org_id']." ");
+		if(@$_GET['rest_type'] != '') 
+		{
+			$data['variable']->where("rest_type = '".$_GET['rest_type']."'");
+		 	if(@$_GET['org_id']!='')$data["variable"]->where("org_id = ".$_GET['org_id']." ");
 			$data["variable"]->get_page(100);
-			$data['org'] = new Organization(@$_GET['org_id']);
-			$sql = "select count(*)n_register_number from register_datas where org_id=".$_GET['org_id'];
+			$data['max_participants'] = @$_GET['rest_type'] =='y' ? 150 : 50;
+			$sql = "select count(*)n_register_number from register_datas where rest_type='".$_GET['rest_type']."'";
 			$n_register_number = $this->db->query($sql)->result();
 			$n_register_number = @$n_register_number[0];
 			$data['n_register_number'] = $n_register_number->n_register_number;
 		}	
 		save_logs($this->menu_id, 'View', 0 , 'View Register Data ');	
-		$this->template->build("register_datas/index",$data);
+		$this->template->build("register_publics/index",$data);
 	}
 
 	public function form($id=false) {
@@ -71,18 +64,17 @@ class Register_datas extends Admin_Controller {
 			$data['checkout_time'] = substr($data['value']->checkout_date,11,5);
 			$data['checkout_hour'] = substr($data['value']->checkout_date,11,2);
 			$data['checkout_minute'] = substr($data['value']->checkout_date,14,2);
-			}								
-		}
-
+			}	
+		}		
 		save_logs($this->menu_id, 'View', @$data['value']->id , 'View Register Data Detail');
-		$this->template->build("register_datas/form",$data);
+		$this->template->build("register_publics/form",$data);
 	}
 
 	public function save($id=false) {
 		if($this->perm->can_create =='y'){
 			if($_POST) {
 				$data = new Register_data($id);
-				$data->register_type = 1;
+				$data->register_type = 2;
 				$data->titulation_id = strip_tags($_POST["titulation_id"]);
 				$data->titulation_other = strip_tags($_POST["titulation_other"]);
 				$data->firstname = strip_tags($_POST["firstname"]);
@@ -98,10 +90,10 @@ class Register_datas extends Admin_Controller {
 				$data->food_type = $_POST['food_type'];
 				if($data->rest_type =='y'){
 					$data->hotel_id = $_POST['hotel_id'];
-					$checkin_date = $_POST['checkin_year'] . '-' . $_POST['checkin_month'] . '-' . $_POST['checkin_day'].' '.$_POST['checkin_hour'].":".$_POST['checkin_minute'];
-					$data -> checkin_date = $checkin_date;
-					$checkout_date = $_POST['checkout_year'] . '-' . $_POST['checkout_month'] . '-' . $_POST['checkout_day'].' '.$_POST['checkout_hour'].":".$_POST['checkout_minute'];;
-					$data -> checkout_date = $checkout_date;							
+					$checkin_date = $_POST['checkin_year'].'-'.$_POST['checkin_month'].'-'.$_POST['checkin_day'];
+					$data->checkin_date = $checkin_date;
+					$checkout_date = $_POST['checkout_year'].'-'.$_POST['checkout_month'].'-'.$_POST['checkout_day'];
+					$data->checkout_date = $checkout_date;							
 					$data->rest_with = $_POST['rest_with'];
 				}else{
 					$data->hotel_id = null;
@@ -119,22 +111,21 @@ class Register_datas extends Admin_Controller {
 					$data->update_date = date("Y-m-d H:i:s");
 				}
 				if($data->register_code == ''){
-					$org = new Organization($_POST['org_id']);
-					$register_code = $org->prefix_code.$org->sortorder;
-					$sql = "select max(register_number)max_register_number from register_datas where org_id=".$_POST['org_id'];
-					$max_register_number = $this->db->query($sql)->result();
+					$register_code = $data -> rest_type == 'y' ? 'E02' : 'E01';
+					$sql = "select max(register_number)max_register_number from register_datas where rest_type='" . $data -> rest_type . "' AND register_type = 2 ";
+					$max_register_number = $this -> db -> query($sql) -> result();
 					$max_register_number = @$max_register_number[0];
-					$max_register_number = $max_register_number->max_register_number;
-					$register_code .= str_pad(($max_register_number +1) ,2,"0",STR_PAD_LEFT);
-					$data->register_code = $register_code;
-					$data->register_number = $max_register_number +1;
+					$max_register_number = $max_register_number -> max_register_number;
+					$register_code .= str_pad(($max_register_number + 1), 2, "0", STR_PAD_LEFT);
+					$data -> register_code = $register_code;
+					$data -> register_number = $max_register_number + 1;
 				}
 				$data->save();
 				$action = $_POST['id'] > 0 ? 'UPDATE' : 'CREATE';
-				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->firstname.' '.$data->lastname.' User Detail');
+				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->firstname.' '.$data->lastname.'  Register Public');
 			}
 		}
-		redirect("admin/register_datas/index?org_id=".$_POST['org_id']);
+		redirect("admin/".$this->modules_name."/index?rest_type=".$data->rest_type);
 	}
 
 	public function delete($id = null) {
@@ -157,8 +148,7 @@ class Register_datas extends Admin_Controller {
 					$data->org_other = null;
 					$data->position = null;
 					$data->mobile_no = null;
-					$data->email = null;
-					$data->rest_type = null;
+					$data->email = null;					
 					$data->food_type = null;
 					$data->hotel_id = null;
 					$data->checkin_date = null;
@@ -174,33 +164,24 @@ class Register_datas extends Admin_Controller {
 				}
 			}
 		}
-		redirect('admin/register_datas/index?org_id='.$org_id);
+		redirect("admin/".$this->modules_name."/index?rest_type=".$data->rest_type);
 	}
 
 	public function ajax_rest_with_list(){
-		$condition = '';
 		$org_id = @$_POST['org_id'];
 		$register_data_id = @$_POST['register_data_id'];
 		$rest_with_id = @$_POST['rest_with_id'];
-		$condition .= ' AND register_type = 1 AND org_id = '.$org_id;
+		$rest_list = new Register_data();
+		$rest_list->where('org_id = '.$org_id);
 		if($register_data_id>0){
-			$condition .= ' AND register_datas.id <> '.$register_data_id;
+			$rest_list->where(' id <> '.$register_data_id);
 		}
-		$sql = 'SELECT 
-					register_datas.id, titulation_title,firstname,lastname, org_name
-				FROM 
-					register_datas
-					LEFT JOIN titulations ON register_datas.titulation_id = titulations.id
-					LEFT JOIN organizations ON register_datas.org_id = organizations.id
-				WHERE
-					1=1 '.$condition;
-		$rest_list = $this->db->query($sql)->result();
 		$select = '<select name="rest_with" class="form-control-other" style="padding-left:0px;">';
 		$select.= '<option value="null" selected="selected">ไม่ระบุ</option>';
-		$select.= $rest_with_id == '-1' ? '<option value="-1" selected="selected">พักคนเดียว</option>' : '<option value="0">พักคนเดียว</option>';
+		$select.= $rest_with_id == '0' ? '<option value="0" selected="selected">พักคนเดียว</option>' : '<option value="0">พักคนเดียว</option>';
 		foreach ($rest_list as $key => $value):
-			$selected = $value->id ==$rest_with_id ? 'selected="selected"' : '';
-			$select.='<option value="'.$value->id.'" '.$selected.'>'.$value->titulation_title.$value->firstname.' '.$value->lastname.'</option>';
+			$checked = $value->id==$rest_with_id ? 'checked="checked"' : '';
+			$select.='<option value="'.$value->id.'" '.$selected.'>'.$value->titulation->titulation_title.$value->firstname.' '.$value->lastname.'</option>';
 		endforeach;
 		$select .='</select>';
 		echo $select; 

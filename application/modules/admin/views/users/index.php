@@ -5,23 +5,23 @@
 		<div class="box">
 			<form method="get" enctype="multipart/form-data">
 			<div class="box-header">
-			  <h3 class="box-title">Search</h3>			  
+			  <h3 class="box-title">ค้นหา</h3>			  
 			</div><!-- /.box-header -->
 			<div style="float:left;width:100%;">
-				<div class="col-xs-3">
-			  	<label for="search">Search</label> 
-			  	<input type="text" name="search" value="<?php echo @$_GET['search'];?>" placeholder="Firstname/Lastname/Username/Email" class="form-control">
-			    </div>
-				<div class="col-xs-3">
-			  	<label for="organization_id">Organization</label> 
+				<div class="col-xs-5">
+			  	<label for="organization_id">หน่วยงาน</label> 
 			  	<span class="span_org_data">
 			  	<?php 
 			  		$org_id = $perm->can_access_all != 'n' && @$_GET['country_id'] > 0 ? $current_user->org_id : @$_GET['org_id'];
-			  		$ext_condition = $org_id > 0 ? " WHERE org_id = ".$org_id : "";
-			  		echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition." ORDER BY org_name ASC "),@$_GET['org_id'],'class="form-control"','-- all organization --');
+			  		//$ext_condition = $org_id > 0 ? " WHERE org_id = ".$org_id : "";
+			  		echo form_dropdown('org_id',get_option('id','org_name','organizations'," ORDER BY org_name ASC "),@$_GET['org_id'],'class="form-control-other"','-- แสดงทั้งหมด --');
 			  	?>
 			  	</span>
 				</div>
+				<div class="col-xs-3">
+			  	<label for="search">คำค้น</label> 
+			  	<input type="text" name="search" value="<?php echo @$_GET['search'];?>" placeholder="Firstname/Lastname/Username/Email" class="form-control">
+			    </div>				
 			  <div class="col-xs-3">
 			  	<br>
 			  	<input type="submit" name="b" class="btn btn-primary" value="Search">
@@ -120,15 +120,5 @@
 		    return false;
 		    
 		});
-		
-		$("select[name=country_id]").change(function(){
-			var country_id = $(this).val();
-			$.post('admin/settings/organizations/load_organizations',{
-			'country_id' : country_id,
-			},function(data){
-				$(".span_org_data").html(data);												
-			});	
-		});
-		
 	});
 </script>

@@ -3,16 +3,16 @@
   <div class="row">
     <div class="col-xs-12">
 		<div class="box">
-			<form method="post" enctype="multipart/form-data" action="admin/contents/save?slug=<?php echo @$_GET['slug'];?>">
+			<form method="post" enctype="multipart/form-data" action="admin/settings/hotels/save/<?=@$rs->id?>">
 			<div class="box-header">
-			  <h3 class="box-title">Add/Edit</h3>			  
+			  <h3 class="box-title">เพิ่ม/แก้ไข</h3>			  
 			</div><!-- /.box-header -->
 			
 			<div class="box-body">
 				<div class="form-group">
-		              <label for="exampleInputEmail1">Detail</label>
-		              <textarea name="detail" id="detail" ><?=@$rs->detail?></textarea>
-	            </div>	  
+		              <label>ชื่อโรงแรม</label>
+		              <input type="text" class="form-control" name="hotel_name" required="required" value="<?php echo @$rs->hotel_name;?>">
+	            </div>
 	            <table>
 	            	<tr>
 	            		<td>
@@ -44,10 +44,11 @@
 	            	</tr>
 	            </table>
 	            <div class="form-group">
-	            	  <?php if($can_save=='y'): ?>
-	            	  <input type="hidden" name="id" value="<?=@$rs->id?>">
+	            	 <?php if($perm->can_create=='y'){ ?>
+	            	  <input type="hidden" name="id" value="<?php echo @$rs->id;?>">
 		              <input type="submit" class="btn btn-primary" value="Save">
-		              <?php endif;?>		              
+		             <?php } ?>		    
+		              <a href="admin/settings/organizations/index" class="btn btn-default">Back</a>          
 	            </div>          	            	           	           
             </div>            
 			</form>						
@@ -55,12 +56,3 @@
 	</div>
   </div>
 </section>
-<!-- Load TinyMCE -->
-<script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="js/tinymce/config.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		tiny("detail");
-		
-	});
-</script>  

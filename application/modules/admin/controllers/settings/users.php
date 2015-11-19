@@ -28,11 +28,11 @@ class Users extends Admin_Controller {
 		if(@$_GET['org_id']>0)$data["variable"]->where("org_id = ".$_GET['org_id']);
 		if($this->perm->can_access_all != 'y')
 		 {
-		 	$data["variable"]->where("org_id ".$this->current_user->org_id." ");
+		 	$data["variable"]->where("org_id = ".$this->current_user->org_id." ");
 		 }
 		 else if(@$_GET['org_id'] != '') 
 		 {
-		 	$data["variable"]->where("org_id ".$this->current_user->org_id." ");
+		 	$data["variable"]->where("org_id = ".$this->current_user->org_id." ");
 		 }		
 		$data["variable"]->where("id !=",user()->id)->get_page();
 		save_logs($this->menu_id, 'View', 0 , 'View Users ');

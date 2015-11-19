@@ -68,12 +68,12 @@
 						if(@$value->id)
 						{
 							$ext_condition = 'where id = '.$value->org_id;						
-		              		echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition),@$value->org_id,'class="form-control-other" required="required"','',false);
+		              		echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition),@$value->org_id,'class="form-control-other" ','',false);
 						}else{
 							if($perm->can_access_all!='y'){
-								echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition),@$value->org_id,'class="form-control-other" required="required"','',false);	
+								echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition),@$value->org_id,'class="form-control-other" ','',false);	
 							}else{
-								echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition.' ORDER BY prefix_code,sortorder ASC '),@$value->org_id,'class="form-control-other" required="required"','--โปรดระบุหน่วยงาน--');
+								echo form_dropdown('org_id',get_option('id','org_name','organizations',$ext_condition.' ORDER BY prefix_code,sortorder ASC '),@$value->org_id,'class="form-control-other" ','--โปรดระบุหน่วยงาน--');
 							}							
 						}
 		              ?>
@@ -111,7 +111,7 @@
 		              <label for="exampleInputRestType">โรงแรมที่เข้าพัก</label>
 		              <br>
 		              <div class="col-xs-5" style="padding-left:0px;">
-		              <?php echo form_dropdown('hotel_id',get_option('id','hotel_name','hotels'),@$value->hotel_id,'class="form-control-other" required="required"','--โปรดระบุโรงแรม-');?>
+		              <?php echo form_dropdown('hotel_id',get_option('id','hotel_name','hotels'),@$value->hotel_id,'class="form-control-other" ','--โปรดระบุโรงแรม-');?>
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>
@@ -123,9 +123,9 @@
 		              <div class="input-group">
 			              <span class="input-group-addon">วัน</span>
 			              <select name="checkin_day" class="form-control input-group-addon">
-			              	<option value="26" <?php if($checkin_day=='' || $checkin_day==26)echo 'selected="selected"';?>>26</option>
-			              	<option value="27" <?php if($checkin_day==27)echo 'selected="selected"';?>>27</option>
-			              	<option value="28" <?php if($checkin_day==28)echo 'selected="selected"';?>>28</option>
+			              	<option value="26" <?php if(@$checkin_day=='' || @$checkin_day==26)echo 'selected="selected"';?>>26</option>
+			              	<option value="27" <?php if(@$checkin_day==27)echo 'selected="selected"';?>>27</option>
+			              	<option value="28" <?php if(@$checkin_day==28)echo 'selected="selected"';?>>28</option>
 			              </select>
 			              <span class="input-group-addon">เดือน</span>
 			              <select name="checkin_month" class="form-control input-group-addon">
@@ -134,6 +134,27 @@
 			              <span class="input-group-addon">ปี</span>
 			              <select name="checkin_year" class="form-control input-group-addon">
 			              	<option value="2016">2559</option>
+			              </select>
+		              </div>
+		                <br>
+			            <div class="input-group" style="width:158px;">
+			              <span class="input-group-addon">เวลา</span>
+			              <select name="checkin_hour" style="width:72px;" class="form-control input-group-addon">
+			              	<?php 
+			              	for($hour=00;$hour<=23;$hour++):
+								$txt_hour = str_pad($hour,2,"0",STR_PAD_LEFT)
+			              	?>
+			              	<option value="<?php echo $txt_hour;?>" <?php if((@$checkin_minute=='' && $txt_hour=='00') || @$checkin_hour==$txt_hour)echo 'selected="selected"';?>><?php echo $txt_hour;?></option>
+			              	<?php endfor;?>
+			              </select>
+			              <span class="input-group-addon">:</span>
+			              <select name="checkin_minute" style="width:72px;" class="form-control input-group-addon" >
+			              	<?php 
+			              	for($minute=0;$minute<=59;$minute++):
+								$txt_minute = str_pad($minute,2,"0",STR_PAD_LEFT)
+			              	?>
+			              	<option value="<?php echo $txt_minute;?>" <?php if((@$checkin_minute=='' && $txt_minute=='00') || @$checkin_minute==$txt_minute)echo 'selected="selected"';?>><?php echo $txt_minute;?></option>
+			              	<?php endfor;?>
 			              </select>
 		              </div>
 		              </div>
@@ -147,9 +168,9 @@
 		              <div class="input-group">
 			              <span class="input-group-addon">วัน</span>
 			              <select name="checkout_day" class="form-control input-group-addon">
-			              	<option value="26" <?php if($checkout_day=='' || $checkout_day==26)echo 'selected="selected"';?>>26</option>
-			              	<option value="27" <?php if($checkout_day==27)echo 'selected="selected"';?>>27</option>
-			              	<option value="28" <?php if($checkout_day==28)echo 'selected="selected"';?>>28</option>
+			              	<option value="26" <?php if(@$checkout_day=='' || @$checkout_day==26)echo 'selected="selected"';?>>26</option>
+			              	<option value="27" <?php if(@$checkout_day==27)echo 'selected="selected"';?>>27</option>
+			              	<option value="28" <?php if(@$checkout_day==28)echo 'selected="selected"';?>>28</option>
 			              </select>
 			              <span class="input-group-addon">เดือน</span>
 			              <select name="checkout_month" class="form-control input-group-addon">
@@ -160,6 +181,27 @@
 			              	<option value="2016">2559</option>
 			              </select>
 		              </div>
+		              <br>
+		              <div class="input-group" style="width:158px;">
+			              <span class="input-group-addon">เวลา</span>
+			              <select name="checkout_hour" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
+			              	<?php 
+			              	for($hour=00;$hour<=23;$hour++):
+								$txt_hour = str_pad($hour,2,"0",STR_PAD_LEFT)
+			              	?>
+			              	<option value="<?php echo $txt_hour;?>" <?php if((@$checkout_hour=='' && $txt_hour=='00') || @$checkout_hour==$txt_hour)echo 'selected="selected"';?>><?php echo $txt_hour;?></option>
+			              	<?php endfor;?>
+			              </select>
+			              <span class="input-group-addon">:</span>
+			              <select name="checkout_minute" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
+			              	<?php 
+			              	for($minute=0;$minute<=59;$minute++):
+								$txt_minute = str_pad($minute,2,"0",STR_PAD_LEFT)
+			              	?>
+			              	<option value="<?php echo $txt_minute;?>" <?php if((@$checkout_minute=='' && $txt_minute=='00') || @$checkout_minute==$txt_minute)echo 'selected="selected"';?>><?php echo $txt_minute;?></option>
+			              	<?php endfor;?>
+			              </select>
+		              	</div>
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>	            
@@ -215,11 +257,11 @@
 	            	</tr>
 	            </table>
 	            <div class="form-group">
-	            	  <?php if($perm->can_create=='y' || $modules_name == 'profile'){ ?>
+	            	  <?php if($perm->can_create=='y'){ ?>
 	            	  <input type="hidden" name="id" value="<?php echo @$value->id;?>">
 		              <input type="submit" class="btn btn-primary" value="Save">
 					  <?php } ?>	
-		              <a href="admin/<?php echo $modules_name;?>/index" class="btn btn-default">Back</a>	              
+					  <input type="button" onclick="history.back()" class="btn btn-default" value="ย้อนกลับ">
 	            </div>          	            	           	           
             </div>            
 			</form>						
@@ -227,6 +269,117 @@
 	</div>
 </div>
 </section>
+<script type="text/javascript" src="js/validate/jquery.validate.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="js/validate/jquery.validate.css" />
+
+<script type="text/javascript">
+      $(function(){
+      		
+      		
+            $('form').validate({
+                  rules: {
+                        titulation_id: { required:true },
+                        firstname: { required:true },
+                        lastname: { required:true },
+                        gender: { required:true },
+                        position: { required:true },
+                        org_id: { required:true },
+                        mobile_no: { required:true },
+                        email: { required:true },
+                        rest_type: { required:true },
+                        food_type: { required:true }
+                  },
+                  messages: {
+                        titulation_id: { required:"กรุณาระบุ" },
+                        firstname: { required:"กรุณาระบุ" },
+                        lastname: { required:"กรุณาระบุ" },
+                        gender: { required:"กรุณาระบุ" },
+                        position: { required:"กรุณาระบุ" },
+                        org_id: { required:"กรุณาระบุ" },
+                        mobile_no: { required:"กรุณาระบุ" },
+                        email: { required:"กรุณาระบุ" },
+                        rest_type: { required:"กรุณาระบุ" },
+                        food_type: { required:"กรุณาระบุ" }
+                  },
+                  errorPlacement: function(error, element) {
+                        if (element.attr('name') == 'gender' || element.attr('name') == 'rest_type' || element.attr('name') == 'food_type') {
+                              $("[name="+element.attr('name')+"]").parent().append(error);
+                        } else {
+                              error.insertAfter(element);
+                        }
+                  }
+            });
+            
+            
+            $('form').on('submit', function(){
+                  breakSubmit = 0;
+                  
+                  
+                  //Titulation is others.
+                  optionText = $('[name=titulation_id] option:checked').text();
+                  if(optionText == 'อื่นๆ' || optionText == 'อื่น ๆ') {
+                        if(!$('[name=titulation_other]').val()) {
+                              $('[name=titulation_other]').parent().append('<label for="titulation_other" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=titulation_other]').on('keyup',function(){
+                              $('label[for=titulation_other]').remove();
+                        });
+                  }
+                  
+                  
+                  //Organization is others.
+                  optionText = $('[name=org_id] option:checked').text();
+                  if(optionText == 'อื่นๆ' || optionText == 'อื่น ๆ') {
+                        if(!$('[name=org_other]').val()) {
+                              $('[name=org_other]').parent().append('<label for="org_other" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=org_other]').on('keyup',function(){
+                              $('label[for=org_other]').remove();
+                        });
+                  }
+                  
+                  
+                  //Rest_type validate
+                  if($('[name=rest_type]:checked').val() == 'y') {
+                        //--โรงแรมที่เข้าพัก
+                        if(!$('[name=hotel_id]').val()) {
+                              $('[name=hotel_id]').parent().append('<label for="hotel_id" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=hotel_id]').on('change',function(){
+                              $('label[for=hotel_id]').remove();
+                        });
+                        
+                        //--คืนที่เข้าพัก
+                        checkIn = ($('[name=checkin_day]').val()!='' && $('[name=checkin_month]').val() != '' && $('[name=checkin_year]').val() != '');
+                        if(!checkIn) {
+                              $('[name=checkin_year]').parent().parent().append('<label for="checkin" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=checkin_day], [name=checkin_month], [name=checkin_year]').on('change',function(){
+                              $('label[for=checkin]').remove();
+                        });
+                        
+                        //--คืนที่ออกจากที่พัก
+                        checkOut = ($('[name=checkout_day]').val()!='' && $('[name=checkout_month]').val() != '' && $('[name=checkout_year]').val() != '');
+                        if(!checkOut) {
+                              $('[name=checkout_year]').parent().parent().append('<label for="checkout" generated="true" class="error">กรุณาระบุ</label>');
+                              breakSubmit = 1;
+                        }
+                        $('[name=checkout_day], [name=checkout_month], [name=checkout_year]').on('change',function(){
+                              $('label[for=checkout]').remove();
+                        });
+                  }
+                  
+                  if(breakSubmit == 1) {
+                        return false;
+                  }
+            });
+      });
+      
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		<?php if(@$value->rest_type=='y') echo 'show_rest_layout(true);'; else echo 'show_rest_layout(false);';?>

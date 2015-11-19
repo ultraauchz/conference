@@ -50,18 +50,19 @@
 
     <div class="container" style="margin-top:40px">
 		<div class="row">
-			<div class="col-sm-6 col-md-4 col-md-offset-4">
+			<div style="margin:0 auto;width:550px;">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong>KMDDC Conference System</strong>
+						<strong>ระบบลงทะเบียนการสัมมนา</strong>
 					</div>
 					<div class="panel-body">
 						<form role="form" action="admin/signin/action" method="POST">
 							<fieldset>
 								<div class="row">
-									<div class="center-block">
-                                    	<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
+									<div class="center-block" align="center">
+                                    	<a href="home/index"><img src="images/Logo-Full-Final.png"></a>
 									</div>
+									<br>
 								</div>
 								
 								<div class="row">

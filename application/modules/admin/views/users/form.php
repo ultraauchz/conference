@@ -59,7 +59,7 @@
 		              }else{
 		              	$org_id = $perm->can_access_all != 'n'  ? $current_user->org_id : @$value->org_id;
 					  	$ext_condition = $org_id > 0 ? " WHERE $org_id = ".$org_id : ""; 
-		              	echo form_dropdown('org_id',get_option('id','org_name','organizations', $ext_condition." ORDER BY org_name ASC "),@$value->org_id,'class="form-control required" style="padding:0;border:0px;"','--select organization--');
+		              	echo form_dropdown('org_id',get_option('id','org_name','organizations', $ext_condition." ORDER BY org_name ASC "),@$value->org_id,'class="form-control-other required" style="padding:0;border:0px;"','--select organization--');
 					  }
 		              ?>	
 	            </div>

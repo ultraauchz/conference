@@ -1,4 +1,12 @@
 <?php
+function get_public_ticket($rest_type){
+	$CI=& get_instance();
+	$sql = "SELECT COUNT(*)nticket FROM register_datas WHERE register_type = 2 AND rest_type = '".$rest_type."'";
+	$ticket = $CI->db->query($sql)->result();
+	$ticket = @$ticket[0];
+	return $ticket->nticket;
+}
+
 function ordering_data($mode=FALSE,$table_name,$id,$ext_condition,$step=1){
 		$CI =& get_instance();
 		//$CI->db->debug = true;		

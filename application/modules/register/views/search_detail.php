@@ -11,10 +11,10 @@
 	            <div class="form-group">
 		              <label for="exampleInputFullname">ชื่อ - นามสกุล</label><br>
 		              <div class="col-xs-5" style="padding-left:0px;">
-		              	<input type="text" class="form-control" name="firstname" placeholder="ชื่อ" value="" required="required"> 
+		              	<input type="text" class="form-control" name="firstname" placeholder="ชื่อ" value="<?php echo @$_POST['firstname'];?>" required="required"> 
 		              </div>
 		              <div class="col-xs-6">
-		              	<input type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="" required="required">
+		              	<input type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="<?php echo @$_POST['lastname'];?>" required="required">
 		              </div>
 		              <div class="clearfix"></div> 
 	            </div>	            

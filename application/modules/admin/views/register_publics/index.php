@@ -1,9 +1,9 @@
 <style type="text/css">
-	table#example1 td {
+	table#example1 td{
 		vertical-align: middle;
 	}
 </style>
-<?php echo bread_crumb($menu_id); ?>
+<?php echo bread_crumb($menu_id);?>
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
@@ -13,25 +13,28 @@
 			  <h3 class="box-title">ค้นหา</h3>			  
 			</div><!-- /.box-header -->
 			<div style="float:left;width:100%;">
-			<div class="col-xs-5">
-			  	<label for="organization_id">หน่วยงาน* (กรุณาระบุ)</label> 
-			  	<span class="span_org_data">
-			  	<?php
-				//$org_id = $perm->can_access_all != 'n' && @$_GET['country_id'] > 0 ? $current_user->org_id : @$_GET['org_id'];
-				
-				$ext_condition = $perm -> can_access_all != 'y' ? " WHERE id = " . $current_user -> org_id : "";
-				if($perm->can_access_all != 'y'){
-					echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition), @$_GET['org_id'], 'class="form-control-other" disabled="disabled"', '',FALSE);
-				}else{
-					echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition . " ORDER BY prefix_code,sortorder ASC "), @$_GET['org_id'], 'class="form-control-other" required="required"', '-- ระบุหน่วยงาน --');	
-				}				
-			  	?>
+				<div class="col-xs-3">
+			  	<label for="organization_id">การเข้าพัก* (กรุณาระบุ)</label> 
+			  	<span>
+			  		<select name="rest_type" class="form-control">
+			  			<option value="">-- กรุณาระบุการเข้าพัก --</option>
+			  			<option value="y" <?php if(@$_GET['rest_type']=='y')echo 'selected="selected"';?>>เข้าพัก</option>
+			  			<option value="n" <?php if(@$_GET['rest_type']=='n')echo 'selected="selected"';?>>ไม่เข้าพัก</option>
+			  		</select>
 			  	</span>
 				</div>
 				<div class="col-xs-3">
 			  	<label for="search">คำค้น</label> 
-			  	<input type="text" name="search" value="<?php echo @$_GET['search']; ?>" placeholder="ชื่อ/นามสกุล/รหัสลงทะเบียน" class="form-control">
-			    </div>				
+			  	<input type="text" name="search" value="<?php echo @$_GET['search'];?>" placeholder="ชื่อ/นามสกุล/รหัสลงทะเบียน" class="form-control">
+			    </div>
+				<div class="col-xs-5">
+			  	<label for="organization_id">หน่วยงาน</label> 
+			  	<span class="span_org_data">
+			  	<?php 
+			  		echo form_dropdown('org_id',get_option('id','org_name','organizations'," ORDER BY prefix_code,sortorder ASC "),@$_GET['org_id'],'class="form-control-other"','-- ระบุหน่วยงาน --');
+			  	?>
+			  	</span>
+				</div>
 			  <div class="col-xs-3">
 			  	<br>
 			  	<input type="submit" name="b" class="btn btn-primary" value="แสดงรายการ">
@@ -39,7 +42,7 @@
 			</div>
 			</form>
 		<div class="box-body" style="min-height:500px;">
-			<?php if(@$_GET['org_id']!=''): ?>
+			<?php if(@$_GET['rest_type']!=''): ?>
 			<?php echo $variable->pagination()?>
 			<table id="example1" class="table table-bordered table-striped table-hover table_data">
 			    <thead>
@@ -142,7 +145,7 @@
 			      </tr>
 			    </tfoot>
 			</table>
-			<?php if($perm->can_create=='y' && $n_register_number < $org->max_participants){?>
+			<?php if($perm->can_create=='y' && $n_register_number < $max_participants){?>
 			<div style="text-align:right;">
 			  	<a href="admin/<?php echo $modules_name; ?>/form" class="btn btn-info"><li class="fa fa-plus"></li> Create new</a>
 			</div>

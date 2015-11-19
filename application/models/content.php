@@ -2,9 +2,9 @@
 /*
  * Content Model
  */
-class Contents extends ORM {
+class Content extends ORM {
 
-	var $table = "acm_contents";
+	var $table = "contents";
 	
     function __construct($id = NULL)
 	{

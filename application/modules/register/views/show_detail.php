@@ -60,10 +60,8 @@
       </tr>
       <tr>
         <td colspan="5">
-        	<span class="black14">
-        	<strong>
-        		<font color="red">รหัสลงทะเบียน : <?php echo $value -> register_code; ?></font>
-        	</strong>
+        	<span class="black14" style="font-size:24px;font-weight:bold;color:red;">
+        		รหัสลงทะเบียน : <?php echo $value -> register_code; ?>
         	</span>
     	</td>
       </tr>
@@ -71,7 +69,7 @@
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>คำนำหน้า :</strong><?php echo $value -> titulation -> titulation_title; ?></span></td>
+        <td colspan="5"><span class="black14"><strong>คำนำหน้า :</strong>&nbsp;&nbsp;<?php echo $value -> titulation -> titulation_title; ?></span></td>
         </tr>
       <tr>
         <td colspan="5"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -79,8 +77,8 @@
             <td colspan="2">&nbsp;</td>
             </tr>
           <tr>
-            <td width="40%"><span class="black14"><strong>ชื่อ :</strong><?php echo $value -> firstname; ?></span></td>
-            <td width="60%"><span class="black14"><strong>นามสกุล :</strong><?php echo $value -> lastname; ?></span></td>
+            <td width="40%"><span class="black14"><strong>ชื่อ :</strong>&nbsp;&nbsp;<?php echo $value -> firstname; ?></span></td>
+            <td width="60%"><span class="black14"><strong>นามสกุล :</strong>&nbsp;&nbsp;<?php echo $value -> lastname; ?></span></td>
             </tr>
           </table></td>
       </tr>
@@ -96,46 +94,46 @@
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>ตำแหน่ง :</strong><?php echo $value -> position; ?></span></td>
+        <td colspan="5"><span class="black14"><strong>ตำแหน่ง :</strong>&nbsp;&nbsp;<?php echo $value -> position; ?></span></td>
       </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>หน่วยงาน :</strong><?php echo $value -> organization -> org_name; ?></span></td>
+        <td colspan="5"><span class="black14"><strong>หน่วยงาน :</strong>&nbsp;&nbsp;<?php echo $value -> organization -> org_name; ?></span></td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>โทรศัพท์มือถือ :</strong><?php echo $value -> mobile_no; ?></span></td>
+        <td colspan="5"><span class="black14"><strong>โทรศัพท์มือถือ :</strong>&nbsp;&nbsp;<?php echo $value -> mobile_no; ?></span></td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>อีเมล :</strong></span><?php echo $value -> email; ?></td>
+        <td colspan="5"><span class="black14"><strong>อีเมล :</strong></span>&nbsp;&nbsp;<?php echo $value -> email; ?></td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
         </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>การเข้าพัก :</strong></span><?php echo $rest_type = $value -> rest_type == 'y' ? 'เข้าพัก' : 'ไม่เข้าพัก'; ?></td>
+        <td colspan="5"><span class="black14"><strong>การเข้าพัก :</strong></span>&nbsp;&nbsp;<?php echo $rest_type = $value -> rest_type == 'y' ? 'เข้าพัก' : 'ไม่เข้าพัก'; ?></td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>เข้าพัก โรงแรม :</strong><?php echo $value -> hotel -> hotel_name; ?></span></td>
+        <td colspan="5"><span class="black14"><strong>เข้าพัก โรงแรม :</strong>&nbsp;&nbsp;<?php echo $value -> hotel -> hotel_name; ?></span></td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>
         </tr>
       <tr>
-        <td width="20%"><span class="black14"><strong><label for="date_in3">วันที่</label>เข้า</strong><?php echo $checkin_day; ?></span></td>
-        <td width="22%"><span class="black14"><strong>เดือน</strong><?php echo $checkin_month; ?></span></td>
-        <td width="20%"><span class="black14"><strong>ปี</strong><?php echo $checkin_year; ?></span></td>
-        <td width="22%"><span class="black14"><strong>เวลาเข้า</strong></span></td>
+        <td width="20%"><span class="black14"><strong><label for="date_in3">วันที่</label>เข้า</strong>&nbsp;&nbsp;<?php echo $checkin_day; ?></span></td>
+        <td width="22%"><span class="black14"><strong>เดือน</strong>&nbsp;&nbsp;<?php echo $checkin_month_name; ?></span></td>
+        <td width="20%"><span class="black14"><strong>ปี</strong>&nbsp;&nbsp;<?php echo $checkin_year; ?></span></td>
+        <td width="22%"><span class="black14"><strong>เวลาเข้า</strong>&nbsp;&nbsp;<?php echo $checkin_time; ?></span></td>
         <td width="16%"><span class="black14"><strong>น.</strong></span></td>
       </tr>
       <tr>
@@ -143,10 +141,10 @@
         </tr>
       <tr>
         <td><span class="black14"><strong>
-          <label for="date_in2">วันที่</label>ออก</strong><?php echo $checkout_day; ?></span></td>
-        <td><span class="black14"><strong>เดือน</strong><?php echo $checkout_month; ?></span></td>
-        <td><span class="black14"><strong>ปี</strong><?php echo $checkout_year; ?></span></td>
-        <td><span class="black14"><strong>เวลาออก</strong></span></td>
+          <label for="date_in2">วันที่</label>ออก</strong>&nbsp;&nbsp;<?php echo $checkout_day; ?></span></td>
+        <td><span class="black14"><strong>เดือน</strong>&nbsp;&nbsp;<?php echo $checkout_month_name; ?></span></td>
+        <td><span class="black14"><strong>ปี</strong>&nbsp;&nbsp;<?php echo $checkout_year; ?></span></td>
+        <td><span class="black14"><strong>เวลาออก</strong>&nbsp;&nbsp;<?php echo $checkout_time; ?></span></td>
         <td><span class="black14"><strong>น.</strong></span></td>
       </tr>
       <tr>

@@ -16,7 +16,6 @@ if(!function_exists('set_notify'))
 function js_notify() {
 	$CI =& get_instance();
 	$notify = $CI->session->flashdata('notify');
-	
 	if(!empty($notify['notify']))
 	{
 		#$js = '<link rel="stylesheet" href="js/jquery.notifyBar.css" type="text/css" media="screen" />';

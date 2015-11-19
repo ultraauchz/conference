@@ -36,8 +36,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-define('WEB_TITLE'								,'ASEAN Cultural Mapping');
+define('WEB_TITLE'								,'KMDDC Conference System');
 define('REQUEST_START'							,'1436922000');	//	2015-07-15 08:00:00
 
+define('PUBLIC_NOREST_TICKET_QUOTAS',50);
+define('PUBLIC_REST_TICKET_QUOTAS',150);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -21,6 +21,8 @@ class Home extends Base_Controller {
 	
 	public function index() {
 		//$this->template->set_layout("default/index");
-		$this->template->build("index");	
+		$data['content_data'] = new Content();
+		$data['content_data']->where("slug = 'Explanation'")->get(1);
+		$this->template->build("index",$data);	
 	}
 }

@@ -39,29 +39,36 @@
 				<a href="admin/reports/report1?act=export&org_id=<?php echo @$_GET['org_id'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
 			</div>
 			<hr>
-			<table id="example1" class="table table-bordered table-striped table-hover table_data">
-			    <thead>
-			      <tr>
-					<th>ลำดับ</th>
-					<th>รหัสหน่วยงาน</th>
-					<th>ชื่อหน่วยงาน</th>
-					<th>โควต้าการลงทะเบียน</th>
-					<th>จำนวนผู้ลงทะเบียน</th>					
-			      </tr>
-			    </thead>
-				<tbody>
+			
 					<?php 
 					$no=0;
 					foreach ($result as $key => $value):
-						$no++;
+						$no++;							
 					?>
+					<table id="example1" class="table table-bordered table-striped table-hover table_data">
 					<tr>
-						<td align="center"><?php echo $no;?></td>
-						<td align="center"><?php echo $value->prefix_code.$value->sortorder;?></td>
-						<td><?php echo $value->org_name?></td>
-						<td><?php echo $value->max_participants?></td>
-						<td><?php echo $value->registered?></td>
+						<td align="center">ลำดับหน่วยงาน : <?php echo $no;?></td>
+						<td align="center">รหัสหน่วยงาน : <?php echo $value->prefix_code.$value->sortorder;?></td>
+						<td>ชื่อหน่วยงาน : <?php echo $value->org_name?></td>
+						<td>โควต้าการลงทะเบียน : <?php echo $value->max_participants?></td>
+						<td>จำนวนที่ลงทะเบียน ณ ปัจจุบัน : <?php echo $value->registered?></td>
 					</tr>
+					</table>
+					<table id="example1" class="table table-bordered table-striped table-hover table_data">
+					<?
+							$ino =0;
+							$regist_data = new Register_data();
+							$regist_data = $regist_data->where('org_id = '.$value->id)->get();
+							foreach($regist_data as $rkey => $rvalue){
+								$ino++;
+					?>
+						<tr>
+							<td align="center"><?php echo $ino;?></td>
+							<td align="center"><?php echo $rvalue->titulation->titulation_title;?></td>
+							<td colspan="2"><?php echo $rvalue->position?></td>
+						</tr>
+					<?php } ?>
+					</table>
 					<?php endforeach?>
 				</tbody>
 			</table>

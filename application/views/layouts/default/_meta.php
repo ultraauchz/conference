@@ -1,6 +1,6 @@
 <base href="<?php echo site_url(); ?>" />
 <meta charset="UTF-8">
-<title>Siteadmin</title>
+<title><?php $template['title'];?></title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 <!-- Bootstrap 3.3.2 -->
 <link href="medias/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -93,6 +93,7 @@
 <script src="medias/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
 <script src="medias/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/fancybox/jquery.fancybox.pack.js" ></script>
+<?php echo js_notify(); ?>
 <style type="text/css">
 body {
 	margin-left: 0px;
