@@ -86,9 +86,17 @@ class Register_publics extends Admin_Controller {
 				$data->position = strip_tags($_POST['position']);
 				$data->mobile_no = strip_tags($_POST["mobile_no"]);
 				$data->email = strip_tags($_POST["email"]);
-				$data->rest_type = $_POST['rest_type'];
+				$org = new Organization($_POST['org_id']);
+				$data->rest_type = $org->org_type_id > 0 ? $org->org_type_id :  $_POST['rest_type'];
+				$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
 				$data->food_type = $_POST['food_type'];
-				if($data->rest_type =='y'){
+				
+				$data->hotel_id = null;
+				$data->checkin_date = null;
+				$data->checkout_date = null;
+				$data->rest_with = null;
+					
+				/*if($data->rest_type =='y'){
 					$data->hotel_id = $_POST['hotel_id'];
 					$checkin_date = $_POST['checkin_year'].'-'.$_POST['checkin_month'].'-'.$_POST['checkin_day'];
 					$data->checkin_date = $checkin_date;
@@ -100,7 +108,9 @@ class Register_publics extends Admin_Controller {
 					$data->checkin_date = null;
 					$data->checkout_date = null;
 					$data->rest_with = null;
-				}				
+				}
+				 * 
+				 */				
 				if($_POST['id']==''){
 					$data->ip_address = $_SERVER['REMOTE_ADDR'];
 					$data->register_date = date("Y-m-d H:i:s");

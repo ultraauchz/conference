@@ -52,13 +52,15 @@ class Organizations extends Admin_Controller {
 
 	public function save($id=null) {
 			if($_POST) {
-				$data = new Organization($id);
+				$data = new Organization($id);				
 				if($_POST['id']==''){
 					$_POST['created_by'] = $this->user->id; 
 				}else{
 					$_POST['updated_by'] = $this->user->id;
 				}
 				$data->from_array($_POST);
+				$data->show_rest = @$_POST['show_rest']==''? 'n' : $_POST['show_rest'];
+				$data->show_public = @$_POST['show_public']==''? 'n' : $_POST['show_public'];
 				$data->save();				
 				$action = @$_POST['id'] > 0 ? 'UPDATE' : 'CREATE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->org_name.' Organizations ');

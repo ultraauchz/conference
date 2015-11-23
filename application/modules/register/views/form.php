@@ -50,13 +50,12 @@
 	            <hr>
 	            <div class="form-group">
 		              <label for="exampleInputOrg">หน่วยงาน <span style="color:#f00;">*</span></label><br>
-		              <div class="col-xs-5" style="padding-left:0px;">
 		              <?php							
-		              		echo form_dropdown('org_id',get_option('id','org_name','organizations'),@$_POST['org_id'],'class="form-control-other"','--กรุณาระบุหน่วยงาน--');
+		              		echo form_dropdown('org_id',get_option('id','org_name','organizations', " WHERE show_public = 'y' ORDER BY prefix_code,sortorder ASC "),@$_POST['org_id'],'class="form-control-other"','--กรุณาระบุหน่วยงาน--');
 		              ?>
-		              </div>
-                      <div class="col-xs-2" style="padding:7px 1px;">อื่น ๆ โปรดระบุ</div>
-                      <div class="col-xs-5">
+		              <div class="clearfix"></div>
+                      <div class="col-xs-2" style="padding:15px 1px;">อื่น ๆ โปรดระบุ</div>
+                      <div class="col-xs-5" style="padding:15px 1px;">
 		              <input type="text" class="form-control" style="text-align:left;" name="org_other" value="<?php echo @$_POST['org_other'];?>">
 		              </div>		    
 		              <div class="clearfix"></div>	
@@ -75,125 +74,27 @@
 	            </div>
 	            <hr>
 	            <div class="form-group">
-		              <label for="exampleInputRestType">การเข้าพัก</label>
+	            	  <?php 
+	            	  	$norest_ticket = PUBLIC_NOREST_TICKET_QUOTAS - get_public_ticket('n');
+					  	$rest_ticket = PUBLIC_REST_TICKET_QUOTAS - get_public_ticket('y');
+	            	  	$rest_ticket_desc = $rest_ticket > 0? ' [ ว่างอีก '.$rest_ticket.' ที่ ] ' : '[ เต็ม  ]';
+	            	  	$norest_ticket_desc = $norest_ticket > 0? ' [ ว่างอีก '.$norest_ticket.' ที่ ] ' : '[ เต็ม  ]';
+	            	  ?>  
+		              <label for="exampleInputRestType">
+		              	 ประเภทหน่วยงาน ที่สมัคร  
+		              	 <span style="color:#004ead;">ส่วนกลาง  ::: <?php echo $norest_ticket_desc;?> </span>, <span style="color:#00ad02;">ส่วนภูมิภาค ::: <?php echo $rest_ticket_desc;?> </span>		              	 
+		              </label>
 		              <br>
-		              <?php
-		              		$norest_ticket = PUBLIC_NOREST_TICKET_QUOTAS - get_public_ticket('n');
-							$rest_ticket = PUBLIC_REST_TICKET_QUOTAS - get_public_ticket('y');
-		              ?>	
-		              <?php if($norest_ticket > 0){  ?>				  
-		              <input type="radio" name="rest_type" value="n" <?php if(@$_POST['rest_type']=='n')echo 'checked="checked"';?> > ไม่เข้าพัก  
-		              <?php echo $ticket_desc = $norest_ticket > 0? ' [ ว่างอีก '.$norest_ticket.' ที่ ] ' : '[ เต็ม  ]';?>		               
-		              &nbsp;&nbsp;&nbsp;
-		              <?php } ?>		              
-		              <?php if($rest_ticket > 0 ){ ?>
-		              <input type="radio" name="rest_type" value="y" <?php if(@$_POST['rest_type']=='y')echo 'checked="checked"';?>> เข้าพัก  
-		              <?php echo $ticket_desc = $norest_ticket > 0? ' [ ว่างอีก '.$rest_ticket.' ที่ ] ' : '[ เต็ม  ]';?>
-		              <?php } ?>
-		              <div class="clearfix"></div>              
-	            </div>
-	            <hr>
-				<div id="dvRest">	           
-	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">โรงแรมที่เข้าพัก <span style="color:#f00;">*</span></label>
-		              <br>
-		              <div class="col-xs-5" style="padding-left:0px;">
-		              <?php echo form_dropdown('hotel_id',get_option('id','hotel_name','hotels'),@$_POST['hotel_id'],'class="form-control-other"','--โปรดระบุโรงแรม-');?>
+		              <div class="rest_type_layout col-xs-6">
+		              	<select name="rest_type" class="form-control">
+		              		<option value="">กรุณาระบุ</option>
+		              		<option value="1">ส่วนกลาง  <?php echo $norest_ticket_desc;?></option>
+		              		<option value="2">ส่วนภูมิภาค <?php echo $rest_ticket_desc;?></option>
+		              	</select>
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>
 	            <hr>
-	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">คืนที่เข้าพัก <span style="color:#f00;">*</span></label>
-		              <br>
-		              <div class="col-xs-5" style="padding-left:0px;">
-		              <div class="input-group">
-			              <span class="input-group-addon">วัน</span>
-			              <select name="checkin_day" style="width:72px;" class="form-control input-group-addon">
-			              	<option value="26" <?php if(@$_POST['checkin_day']=='' || @$_POST['checkin_day']=='26')echo 'selected="selected"';?>>26</option>
-			              	<option value="27" <?php if(@$_POST['checkin_day']=='27')echo 'selected="selected"';?>>27</option>
-			              	<option value="28" <?php if(@$_POST['checkin_day']=='28')echo 'selected="selected"';?>>28</option>
-			              </select>
-			              <span class="input-group-addon">เดือน</span>
-			              <select name="checkin_month" style="width:100px;" class="form-control input-group-addon">
-			              	<option value="01" selected="selected">มกราคม</option>
-			              </select>
-			              <span class="input-group-addon">ปี</span>
-			              <select name="checkin_year" style="width:88px;" class="form-control input-group-addon">
-			              	<option value="2016" selected="selected">2559</option>
-			              </select>
-						</div>			              
-			              <br>
-			            <div class="input-group">
-			              <span class="input-group-addon">เวลา</span>
-			              <select name="checkin_hour" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
-			              	<?php 
-			              	for($hour=00;$hour<=23;$hour++):
-								$txt_hour = str_pad($hour,2,"0",STR_PAD_LEFT)
-			              	?>
-			              	<option value="<?php echo $txt_hour;?>" <?php if((@$_POST['checkin_minute']=='' && $txt_hour=='00') || @$_POST['checkin_hour']==$txt_hour)echo 'selected="selected"';?>><?php echo $txt_hour;?></option>
-			              	<?php endfor;?>
-			              </select>
-			              <span class="input-group-addon">:</span>
-			              <select name="checkin_minute" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
-			              	<?php 
-			              	for($minute=0;$minute<=59;$minute++):
-								$txt_minute = str_pad($minute,2,"0",STR_PAD_LEFT)
-			              	?>
-			              	<option value="<?php echo $txt_minute;?>" <?php if((@$_POST['checkin_minute']=='' && $txt_minute=='00') || @$_POST['checkin_minute']==$txt_minute)echo 'selected="selected"';?>><?php echo $txt_minute;?></option>
-			              	<?php endfor;?>
-			              </select>
-		              </div>
-		              </div>
-		              <div class="clearfix"></div>              
-	            </div>
-	            <hr>	            
-	            <div class="form-group" id="dvHotel">
-		              <label for="exampleInputRestType">คืนที่ออกจากที่พัก <span style="color:#f00;">*</span></label>
-		              <br>
-		              <div class="col-xs-5" style="padding-left:0px;">
-		              <div class="input-group">
-			              <span class="input-group-addon">วัน</span>
-			              <select name="checkout_day" style="width:72px;" class="form-control input-group-addon">
-			              	<option value="26" <?php if(@$_POST['checkout_day']=='26')echo 'selected="selected"';?>>26</option>
-			              	<option value="27" <?php if(@$_POST['checkout_day']=='27')echo 'selected="selected"';?>>27</option>
-			              	<option value="28" <?php if(@$_POST['checkout_day']=='' || @$_POST['checkout_day']=='28')echo 'selected="selected"';?> >28</option>
-			              </select>
-			              <span class="input-group-addon">เดือน</span>
-			              <select name="checkout_month" style="width:100px;" class="form-control input-group-addon">
-			              	<option value="01" selected="selected">มกราคม</option>
-			              </select>
-			              <span class="input-group-addon">ปี</span>
-			              <select name="checkout_year" style="width:88px;" class="form-control input-group-addon">
-			              	<option value="2016" selected="selected">2559</option>
-			              </select>
-						</div>			              
-			              <br>
-			            <div class="input-group">
-			              <span class="input-group-addon">เวลา</span>
-			              <select name="checkout_hour" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
-			              	<?php 
-			              	for($hour=00;$hour<=23;$hour++):
-								$txt_hour = str_pad($hour,2,"0",STR_PAD_LEFT)
-			              	?>
-			              	<option value="<?php echo $txt_hour;?>" <?php if((@$_POST['checkout_hour']=='' && $txt_hour=='00') || @$_POST['checkout_hour']==$txt_hour)echo 'selected="selected"';?>><?php echo $txt_hour;?></option>
-			              	<?php endfor;?>
-			              </select>
-			              <span class="input-group-addon">:</span>
-			              <select name="checkout_minute" style="width:72px;" class="form-control input-group-addon" style="width:100px;">
-			              	<?php 
-			              	for($minute=0;$minute<=59;$minute++):
-								$txt_minute = str_pad($minute,2,"0",STR_PAD_LEFT)
-			              	?>
-			              	<option value="<?php echo $txt_minute;?>" <?php if((@$_POST['checkout_minute']=='' && $txt_minute=='00') || @$_POST['checkout_minute']==$txt_minute)echo 'selected="selected"';?>><?php echo $txt_minute;?></option>
-			              	<?php endfor;?>
-			              </select>
-		              	</div>
-		              </div>
-		              <div class="clearfix"></div>              
-	            </div>	            
-	            <hr>	            
-	            </div>
 	            <div class="form-group">
 		              <label for="exampleInputRestType">อาหาร <span style="color:#f00;">*</span></label>
 		              <br>
@@ -367,6 +268,28 @@
 				}													
 			});	
 		})
+		
+		$("select[name=org_id]").change(function(){
+			set_rest_type_layout();
+		})
+		
+		function set_rest_type_layout(){
+			var register_id = '';
+			var org_id = $('select[name=org_id]').val();
+			$.post('ajax/get_public_rest_type_layout',{
+				'org_id' : org_id,
+				'register_id' : register_id,
+			},function(data){
+					if(data > 0){
+						$('select[name=rest_type]').val(data); 
+						$('select[name=rest_type]').attr('readonly','readonly');
+						$('select[name=rest_type]').attr('disabled','disabled');
+					}else{
+						$('select[name=rest_type]').removeAttr('readonly');
+						$('select[name=rest_type]').removeAttr('disabled');
+					}
+			});	
+		}
 	})
       
 </script>
