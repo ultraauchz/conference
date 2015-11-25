@@ -51,7 +51,7 @@ class Register extends Base_Controller {
 					$data -> rest_type = $_POST['rest_type'];
 					if($data->rest_type != 'y' || $data->rest_type != 'n'){
 						$org = new Organization($_POST['org_id']);
-						$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
+						$data->rest_type = $org->org_type_id == 2 ? 'y' : 'n';
 					}
 					$data -> food_type = $_POST['food_type'];
 					/*

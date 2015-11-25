@@ -108,6 +108,8 @@ class Reports extends Admin_Controller {
 			$query = "select
 			org_id,
 			org_name,
+			prefix_code,
+			sortorder,
 			count(*)registered
 			from
 			register_datas 
@@ -121,6 +123,8 @@ class Reports extends Admin_Controller {
 			$query = "select
 			org_id,
 			org_name,
+			prefix_code,
+			sortorder,
 			count(*)registered
 			from
 			register_datas 

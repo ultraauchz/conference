@@ -1,5 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><base href="http://km.ddc.moph.go.th/conference/" />
+<meta charset="UTF-8">
+<title>Siteadmin</title>
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+</head>
+<body>
 <div style="text-align:center;">
-	<h4>รายงานสรุปจำนวนผู้ลงทะเบียนงาน
+	<h4>รายงานสรุปจำนวนบุคคลทั่วไปที่ลงทะเบียน
 	<br>สัมมนาวิชาการป้องกันควบคุมโรคแห่งชาติ
 	</h4>
 </div>
@@ -9,7 +16,6 @@
     <thead>
 			      <tr>
 					<th>ลำดับ</th>
-					<th>รหัสหน่วยงาน</th>
 					<th>ชื่อหน่วยงาน</th>
 					<th>จำนวนผู้ลงทะเบียน</th>					
 			      </tr>
@@ -26,18 +32,15 @@
 					$total_registered = 0;
 					foreach ($center_result as $key => $value):
 						$no++;
-						$total_participants += $value->max_participants;
 						$total_registered += $value->registered; 
 					?>
 					<tr>
 						<td align="center"><?php echo $no;?></td>
-						<td align="center"><?php echo $value->prefix_code.$value->sortorder;?></td>
 						<td><?php echo $value->org_name?></td>					
 						<td><?php echo $value->registered?></td>
 					</tr>
 					<?php endforeach?>
 					<tr>
-						<td></td>
 						<td></td>
 						<td>สรุปรวม</td>
 						<td><?php echo $total_registered;?></td>
@@ -53,18 +56,15 @@
 					$total_registered = 0;
 					foreach ($region_result as $key => $value):
 						$no++;
-						$total_participants += $value->max_participants;
 						$total_registered += $value->registered; 
 					?>
 					<tr>
 						<td align="center"><?php echo $no;?></td>
-						<td align="center"><?php echo $value->prefix_code.$value->sortorder;?></td>
 						<td><?php echo $value->org_name?></td>					
 						<td><?php echo $value->registered?></td>
 					</tr>
 					<?php endforeach?>
 					<tr>
-						<td></td>
 						<td></td>
 						<td>สรุปรวม</td>
 						<td><?php echo $total_registered;?></td>
@@ -74,3 +74,5 @@
 <script type="text/javascript">
 	window.print();
 </script>
+</body>
+</html>

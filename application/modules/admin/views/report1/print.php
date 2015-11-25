@@ -1,3 +1,10 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><base href="http://km.ddc.moph.go.th/conference/" />
+<meta charset="UTF-8">
+<title>Siteadmin</title>
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+</head>
+<body>
 <div style="text-align:center;">
 	<h4>รายงานรายชื่อบุคคลากรของกรมที่ลงทะเบียนเข้าร่วมงาน
 	<br>สัมมนาวิชาการป้องกันควบคุมโรคแห่งชาติ
@@ -87,3 +94,5 @@
 <script type="text/javascript">
 	window.print();	
 </script>
+</body>
+</html>

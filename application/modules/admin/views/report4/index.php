@@ -101,7 +101,7 @@
 							if(@$_GET['gender']!=''){
 								$regist_data = $regist_data->where('gender = '.$_GET['gender']);	
 							}
-							$regist_data = $regist_data->where(" rest_type = 'n' ");
+							$regist_data = $regist_data->where(" rest_type = 'y' ");
 							$regist_data = $regist_data->order_by('gender','asc');
 							$regist_data = $regist_data->order_by('register_code','asc');
 							$regist_data = $regist_data->get();

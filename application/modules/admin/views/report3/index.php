@@ -18,7 +18,6 @@
 			    <thead>
 			      <tr>
 					<th>ลำดับ</th>
-					<th>รหัสหน่วยงาน</th>
 					<th>ชื่อหน่วยงาน</th>
 					<th>จำนวนผู้ลงทะเบียน</th>					
 			      </tr>
@@ -35,18 +34,15 @@
 					$total_registered = 0;
 					foreach ($center_result as $key => $value):
 						$no++;
-						$total_participants += $value->max_participants;
 						$total_registered += $value->registered; 
 					?>
 					<tr>
 						<td align="center"><?php echo $no;?></td>
-						<td align="center"><?php echo $value->prefix_code.$value->sortorder;?></td>
 						<td><?php echo $value->org_name?></td>					
 						<td><?php echo $value->registered?></td>
 					</tr>
 					<?php endforeach?>
 					<tr>
-						<td></td>
 						<td></td>
 						<td>สรุปรวม</td>
 						<td><?php echo $total_registered;?></td>
@@ -62,18 +58,15 @@
 					$total_registered = 0;
 					foreach ($region_result as $key => $value):
 						$no++;
-						$total_participants += $value->max_participants;
 						$total_registered += $value->registered; 
 					?>
 					<tr>
 						<td align="center"><?php echo $no;?></td>
-						<td align="center"><?php echo $value->prefix_code.$value->sortorder;?></td>
 						<td><?php echo $value->org_name?></td>					
 						<td><?php echo $value->registered?></td>
 					</tr>
 					<?php endforeach?>
 					<tr>
-						<td></td>
 						<td></td>
 						<td>สรุปรวม</td>
 						<td><?php echo $total_registered;?></td>
