@@ -39,7 +39,7 @@ class Hotels extends Admin_Controller {
 	public function save($id=null) {
 			if($_POST) {
 				$data = new Hotel($id);
-				if($_POST['id']==''){
+				if($id ==''){
 					$_POST['created_by'] = $this->user->id; 
 				}else{
 					$_POST['updated_by'] = $this->user->id;

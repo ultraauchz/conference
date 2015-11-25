@@ -53,7 +53,7 @@ $current_user = user();
 			      </a>
 			      <ul class="treeview-menu">
 			      	<?php
-			      		$child_menu = $CI->menu->where("show_state = 'y' and parent_id = ".$mitem->id)->order_by('title','asc')->get();
+			      		$child_menu = $CI->menu->where("show_state = 'y' and parent_id = ".$mitem->id)->order_by('order_no','asc')->get();
 						foreach($child_menu as $key => $citem):
 							$icon = $citem->custom_icon_style !='' ? $citem->custom_icon_style : "fa-circle-o" ;
 							$perm = get_permission($citem->id,$current_user->user_type_id);

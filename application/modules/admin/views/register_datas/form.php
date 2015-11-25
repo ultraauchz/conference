@@ -119,10 +119,22 @@
 	            <hr>
 				<div id="dvRest">	           
 	            <div class="form-group" id="dvHotel">
+		              <label for="exampleInputRestType">หมายเหตุการเข้าพัก</label>
+		              <br>
+		              <div style="padding-left:0px;">
+		              	<?php
+		              		$configuration = new Configuration(1);
+		              		echo $configuration->rest_remark; 
+		              	?>
+		              </div>
+		              <div class="clearfix"></div>              
+	            </div>
+	            <div class="form-group" id="dvHotel">
 		              <label for="exampleInputRestType">โรงแรมที่เข้าพัก</label>
 		              <br>
-		              <div class="col-xs-5" style="padding-left:0px;">
-		              <?php echo form_dropdown('hotel_id', get_option('id', 'hotel_name', 'hotels'), @$value -> hotel_id, 'class="form-control-other" ', '--โปรดระบุโรงแรม-'); ?>
+		              <div class="col-xs-5 dvHotelList" style="padding-left:0px;">
+		              	 <?php $ext_condition = @$value->org_id > 0 ? ' WHERE id IN (select hotel_id FROM hotels_organizations WHERE org_id = '.$value->org_id.')' : '';?>
+		             	 <?php echo form_dropdown('hotel_id', get_option('id', 'hotel_name', 'hotels',$ext_condition.' order by hotel_name '), @$value -> hotel_id, 'class="form-control" ', '--โปรดระบุโรงแรม-'); ?>
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>
@@ -244,16 +256,20 @@
 			              </select>
 		              	</div>
 		              </div>
+		              <div>		              	
+		              </div>
 		              <div class="clearfix"></div>              
 	            </div>	            
-	            <hr>	            
+	            <hr>	   
+	            <!--         
 	            <div class="form-group">
 		              <label for="exampleInputRestType">พักคู่กับ</label>
 		              <div class="input-group col-xs-10">
 		              	<div id="dvRestWith"></div>
 		              </div>					  
 		              <div class="clearfix"></div>              
-	            </div>	            
+	            </div>
+	            -->	            
 	            <hr>	            
 	            </div>
 	            <div class="form-group">
@@ -516,17 +532,38 @@
 			})
 
 			$("select[name=org_id]").change(function() {
-				var org_id = $(this).val();
-				var rest_with_id = 'null';
-				$.post('admin/register_datas/ajax_rest_with_list', {
-					'register_data_id' : 'null',
-					'org_id' : org_id,
-					'rest_with_id' : rest_with_id,
-				}, function(data) {
-					$("#dvRestWith").html(data);
-					$('select.form-control-other').select2();
-				});
+				load_office_rest_type_layout();		
+				load_office_hotel_list_layout();						
 			})
+			function load_office_rest_type_layout(){
+				var org_id = $('select[name=org_id]').val();
+				$.post('ajax/get_office_rest_type_layout',{
+					'org_id' : org_id,
+				},function(data){
+					switch(data){
+						case '1':
+							$('input[name=rest_type]').filter('[value=n]').prop('checked', true);
+							show_rest_layout(false);
+						break;
+						case '2':
+							$('input[name=rest_type]').filter('[value=y]').prop('checked', true);
+							show_rest_layout(true);
+						break;
+						default:
+						$('input[name=rest_type]').filter('[value=n]').prop('checked', true);
+						break;
+					}
+				});
+			}
 			
+			function load_office_hotel_list_layout(){
+				var org_id = $('select[name=org_id]').val();
+				$.post('ajax/get_office_hotel_list_layout',{
+					'org_id' : org_id,
+					'hotel_id' : '',
+				},function(data){
+					$('.dvHotelList').html(data);
+				});
+			}
 		})
 </script>

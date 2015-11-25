@@ -61,7 +61,18 @@ class Organizations extends Admin_Controller {
 				$data->from_array($_POST);
 				$data->show_rest = @$_POST['show_rest']==''? 'n' : $_POST['show_rest'];
 				$data->show_public = @$_POST['show_public']==''? 'n' : $_POST['show_public'];
-				$data->save();				
+				$data->save();		
+				$this->db->query("DELETE FROM hotels_organizations WHERE org_id=".$data->id);
+				foreach($_POST['org_hotel'] as $key => $item)
+				{
+					if($item)
+					{
+						$hotel_org = new Hotel_organization();
+						$hotel_org->hotel_id = $item;
+						$hotel_org->org_id = $data->id;						
+						$hotel_org->save();
+					}
+				}	
 				$action = @$_POST['id'] > 0 ? 'UPDATE' : 'CREATE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->org_name.' Organizations ');
 			}
@@ -69,8 +80,9 @@ class Organizations extends Admin_Controller {
 	}
 
 	public function delete($id) {
-			if($id) {
+			if($id) {				
 				$data = new Organization($id);
+				$this->db->query("DELETE FROM hotels_organizations WHERE org_id=".$data->id);
 				$action = 'DELETE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->org_name.' Organizations ');
 				$data->delete();

@@ -45,7 +45,7 @@
 	            </table>
 	            <div class="form-group">
 	            	 <?php if($perm->can_create=='y'){ ?>
-	            	  <input type="hidden" name="id" value="<?php echo @$rs->id;?>">
+	            	  <!--<input type="hidden" name="id" value="<?php echo @$rs->id;?>">-->
 		              <input type="submit" class="btn btn-primary" value="Save">
 		             <?php } ?>		    
 		              <a href="admin/settings/organizations/index" class="btn btn-default">Back</a>          

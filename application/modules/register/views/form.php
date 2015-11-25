@@ -4,7 +4,7 @@
 		<div class="box" style="border:0px;">
 			<form method="post" enctype="multipart/form-data" action="register/save">
 			<div class="box-header">
-			  <h4 class="box-title">ลงทะเบียนออนไลน์บุคคลทั่วไป</h4>			  
+			  <h4 class="box-title">ลงทะเบียนออนไลน์บุคคลทั่วไป (รับผิดชอบค่าใช้จ่ายเอง)</h4>			  
 			</div><!-- /.box-header -->
 			
 			<div class="box-body">
@@ -81,7 +81,7 @@
 	            	  	$norest_ticket_desc = $norest_ticket > 0? ' [ ว่างอีก '.$norest_ticket.' ที่ ] ' : '[ เต็ม  ]';
 	            	  ?>  
 		              <label for="exampleInputRestType">
-		              	 ประเภทหน่วยงาน ที่สมัคร  
+		              	 ประเภทหน่วยงาน ที่สมัคร<br>  
 		              	 <span style="color:#004ead;">ส่วนกลาง  ::: <?php echo $norest_ticket_desc;?> </span>, <span style="color:#00ad02;">ส่วนภูมิภาค ::: <?php echo $rest_ticket_desc;?> </span>		              	 
 		              </label>
 		              <br>

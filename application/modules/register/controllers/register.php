@@ -49,7 +49,12 @@ class Register extends Base_Controller {
 					$data -> mobile_no = strip_tags($_POST["mobile_no"]);
 					$data -> email = strip_tags($_POST["email"]);
 					$data -> rest_type = $_POST['rest_type'];
+					if($data->rest_type != 'y' || $data->rest_type != 'n'){
+						$org = new Organization($_POST['org_id']);
+						$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
+					}
 					$data -> food_type = $_POST['food_type'];
+					/*
 					if ($data -> rest_type == 'y') {
 						$data -> hotel_id = $_POST['hotel_id'];
 						$checkin_date = $_POST['checkin_year'] . '-' . $_POST['checkin_month'] . '-' . $_POST['checkin_day'] . ' ' . $_POST['checkin_hour'] . ":" . $_POST['checkin_minute'];
@@ -65,6 +70,10 @@ class Register extends Base_Controller {
 						$data -> checkout_date = null;
 						$data -> rest_with = null;
 					}
+					 * 
+					 */
+					 
+					 
 					$data -> ip_address = $_SERVER['REMOTE_ADDR'];
 					$data -> register_date = date("Y-m-d H:i:s");
 					$data -> create_by = 0;

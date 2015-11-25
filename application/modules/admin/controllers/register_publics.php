@@ -86,11 +86,11 @@ class Register_publics extends Admin_Controller {
 				$data->position = strip_tags($_POST['position']);
 				$data->mobile_no = strip_tags($_POST["mobile_no"]);
 				$data->email = strip_tags($_POST["email"]);
-				$org = new Organization($_POST['org_id']);
-				$data->rest_type = $org->org_type_id > 0 ? $org->org_type_id :  $_POST['rest_type'];
-				$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
+				if($data->rest_type != 'y' || $data->rest_type != 'n'){
+					$org = new Organization($_POST['org_id']);
+					$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
+				}
 				$data->food_type = $_POST['food_type'];
-				
 				$data->hotel_id = null;
 				$data->checkin_date = null;
 				$data->checkout_date = null;

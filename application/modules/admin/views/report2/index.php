@@ -52,8 +52,12 @@
 				<tbody>
 					<?php 
 					$no=0;
+					$total_participants = 0;
+					$total_registered = 0;
 					foreach ($result as $key => $value):
 						$no++;
+						$total_participants += $value->max_participants;
+						$total_registered += $value->registered; 
 					?>
 					<tr>
 						<td align="center"><?php echo $no;?></td>
@@ -63,6 +67,13 @@
 						<td><?php echo $value->registered?></td>
 					</tr>
 					<?php endforeach?>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>สรุปรวม</td>
+						<td><?php echo $total_participants;?></td>
+						<td><?php echo $total_registered;?></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

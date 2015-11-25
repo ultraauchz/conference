@@ -23,6 +23,16 @@
 			  	?>
 			  	</span>
 				</div>
+			  <div>
+			  	<div class="col-xs-2">
+			  	<label for="organization_id">เพศ </label>
+			  		<select name="gender" class="form-control">
+			  			<option value="">แสดงทั้งหมด</option>
+			  			<option value="m">ชาย</option>
+			  			<option value="f">หญิง</option>
+			  		</select> 
+				</div>
+			  </div>
 			  <div class="col-xs-3">
 			  	<br>
 			  	<input type="submit" name="b" class="btn btn-primary" value="แสดงรายการ">
@@ -33,13 +43,12 @@
 			<br>
 			<hr>
 			<br>
-			
+			<?php if(@$_GET){ ?>
 			<div align="right">
 				<a href="admin/reports/report1?act=print&org_id=<?php echo @$_GET['org_id'];?>" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> พิมพ์หน้านี้</a>
 				<a href="admin/reports/report1?act=export&org_id=<?php echo @$_GET['org_id'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
 			</div>
-			<hr>
-			
+			<hr>			
 					<?php 
 					$no=0;
 					foreach ($result as $key => $value):
@@ -54,14 +63,13 @@
 					<table id="example1" class="table table-bordered table-striped table-hover table_data">
 						<tr>
 							<td>ลำดับ</td>
+							<td>รหัสลงทะเบียน</td>
 							<td>ชื่อ - นามสกุล</td>
 							<td>เพศ</td>
 							<td>ตำแหน่ง</td>
 							<td>เบอร์มือถือ</td>
 							<td>อีเมล์</td>							
-							<td>การเข้าพัก</td>	
-							<td>โรงแรม</td>
-							<td>เข้าพักกับ</td>
+							<td>โรงแรม</td>							
 							<td>26</td>
 							<td>27</td>
 							<td>28</td>						
@@ -69,7 +77,14 @@
 					<?
 							$ino =0;
 							$regist_data = new Register_data();
-							$regist_data = $regist_data->where('org_id = '.$value->id)->get();
+							$regist_data = $regist_data->where('register_type = 1');
+							if(@$_GET['gender']!=''){
+								$regist_data = $regist_data->where('gender = '.$_GET['gender']);	
+							}
+							$regist_data = $regist_data->where('org_id = '.$value->id);
+							$regist_data = $regist_data->order_by('gender','asc');
+							$regist_data = $regist_data->order_by('register_code','asc');
+							$regist_data = $regist_data->get();
 							foreach($regist_data as $rkey => $rvalue){
 								$ino++;
 								$checkin_day = substr($rvalue -> checkin_date, 8, 2);
@@ -77,25 +92,13 @@
 					?>
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
+							<td ><?php echo $rvalue->register_code;?></td>
 							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
-							<td ><?php echo $rvalue->gender?></td>
+							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
 							<td ><?php echo $rvalue->position?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
-							<td ><?php echo $rvalue->email?></td>
-							<td ><?php echo $rest_type_desc = $rvalue->rest_type == 'y'? 'เข้าพัก':'ไม่เข้าพัก';?></td>
+							<td ><?php echo $rvalue->email?></td>							
 							<td ><?php echo $rvalue->hotel->hotel_name?></td>
-							<td>
-							<?php
-								if ($rvalue -> rest_with > 0) {
-									$reg_data = new Register_data($rvalue -> rest_with);
-									echo "พักคู่กับ " . $reg_data -> titulation -> titulation_title . $reg_data -> firstname . " " . $reg_data -> lastname;
-								} else if ($rvalue -> rest_with == -1) {
-									echo 'พักคนเดียว';
-								} else {
-									echo 'ไม่ระบุ';
-								}
-							?>
-							</td>
 							<td>
 							<?php
 								if($checkin_day == 26){
@@ -122,7 +125,8 @@
 					</table>
 					</fieldset>
 					<br>
-					<?php endforeach?>								
+					<?php endforeach?>	
+				<?php } ?>							
 		</div>
 		</div><!-- /.box -->
 	</div>

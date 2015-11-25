@@ -214,6 +214,7 @@ class MY_Model extends Model{
 			foreach($data as $key => $item)
 			{
 				$column .= $comma.''.$key.'';
+				echo $meta[$key]->type;
 				if($meta[$key]->type=='N')
 				{
 						$value .= $item == '' ? $comma."0" : $comma.str_replace(',','',$item);

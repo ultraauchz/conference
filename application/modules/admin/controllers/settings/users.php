@@ -121,7 +121,7 @@ class Users extends Admin_Controller {
 				$data  = new User($id);
 				$action = 'DELETE';
 				save_logs($this->menu_id, $action, @$data->id , $action.' '.$data->firstname.' '.$data->lastname.' User Detail');
-				$this->db->query("DELETE FROM acm_user WHERE id=".$id);
+				$this->db->query("DELETE FROM users WHERE id=".$id);
 			}		
 		}
 		redirect('admin/settings/users');

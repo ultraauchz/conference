@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12">
 		<div class="box">
-			<form method="post" enctype="multipart/form-data" action="admin/settings/organizations/save/<?=@$rs->id?>">
+			<form method="post" enctype="multipart/form-data" action="admin/settings/organizations/save/<?php echo @$rs->id?>">
 			<div class="box-header">
 			  <h3 class="box-title">เพิ่ม/แก้ไข</h3>			  
 			</div><!-- /.box-header -->
@@ -32,8 +32,27 @@
 	            </div>	
 				<div class="form-group">
 		              <label>จำนวนที่นั่งสูงสุด</label>
-		              <input type="text" class="form-control" name="max_participants" value="<?php echo @$rs->max_participants;?>">
-	            </div>		            
+		              <input type="text" class="form-control" name="max_participants" required="required" value="<?php echo @$rs->max_participants;?>">
+	            </div>
+	            <div class="form-group">
+		              <label>โรงแรมที่สามารถเลือกเข้าพักได้</label>
+		              <div class="clearfix"></div>
+		              <?php
+		               	$hotel = new Hotel();
+						$hotel->get();
+						foreach ($hotel as $key => $row):
+							$checked='';
+							if($rs->id > 0){
+								$org_hotel = new Hotel_Organization();
+								$org_hotel->where('org_id = '.$rs->id.' and hotel_id = '.$row->id)->get(1);
+								$checked = @$org_hotel->hotel_id == $row->id ? 'checked="checked"' : '';
+							} 
+							echo '<div class="col-xs-3"><input type="checkbox" name="org_hotel[]" '.$checked.' value="'.$row->id.'"> '.$row->hotel_name.'</div>';
+						endforeach;
+		              ?>
+		              <div class="clearfix"></div>
+	            </div>	
+	            <hr>	            
 	            <table>
 	            	<tr>
 	            		<td>
@@ -66,7 +85,7 @@
 	            </table>
 	            <div class="form-group">
 	            	 <?php if($perm->can_create=='y'){ ?>
-	            	  <input type="hidden" name="id" value="<?php echo @$rs->id;?>">
+<!--	            	  <input type="hidden" name="id" value="<?php echo @$rs->id;?>">-->
 		              <input type="submit" class="btn btn-primary" value="Save">
 		             <?php } ?>		    
 		              <a href="admin/settings/organizations/index" class="btn btn-default">Back</a>          
@@ -77,21 +96,3 @@
 	</div>
   </div>
 </section>
-
-<!-- Load TinyMCE -->
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	tiny("org_detail","");
-	
-	$("select[name=country_id]").change(function(){
-		var country_id = $(this).val();
-		$.post('admin/states/load_states',{
-		'country_id' : country_id,
-		},function(data){
-			$(".span_state_id").html(data);												
-		});	
-	})
-	
-});
-</script>

@@ -10,6 +10,10 @@
 			
 			<div class="box-body">
 				<div class="form-group">
+		              <label for="exampleInputEmail1">หมายเหตุการเข้า</label>
+		              <textarea name="rest_remark" id="rest_remark" ><?=@$rs->rest_remark?></textarea>
+	            </div>
+				<div class="form-group">
 					   <input type="checkbox" name="public_status" value="y" <?php echo $status = $rs->public_status =='y' ? 'checked="checked"' : '';?>
 		              <label for="exampleInputEmail1">การลงทะเบียน สำหรับบุคคลทั่วไป</label>
 		              
@@ -65,7 +69,7 @@
 <script type="text/javascript" src="js/tinymce/config.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		tiny("detail");
+		tiny("rest_remark");
 		
 	});
 </script>  
