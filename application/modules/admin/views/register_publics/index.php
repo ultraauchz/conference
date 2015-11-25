@@ -80,7 +80,9 @@
 						?> 
 						<td><?php echo $value->titulation->titulation_title.$value->firstname." ".$value->lastname?></td>						
 						<td><?php echo $value->position?></td>
-						<td><?php echo $value->organization->org_name;?>
+						<td>
+							<?php echo $value->organization->org_name;?>
+							<?php echo $org_other = $value->org_other !='' ? ':::'.$value->org_other : '';?>
 						</td>
 						<?php } ?>						
 						<td>

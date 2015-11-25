@@ -114,7 +114,12 @@
         <td colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="5"><span class="black14"><strong>หน่วยงาน :</strong>&nbsp;&nbsp;<?php echo $value -> organization -> org_name; ?></span></td>
+        <td colspan="5">
+        <span class="black14"><strong>หน่วยงาน :</strong>&nbsp;&nbsp;
+        	<?php echo $value -> organization -> org_name; ?>
+        	<?php echo $org_other = $value->org_other !='' ? ':::'.$value->org_other : '';?>
+        </span>
+        </td>
         </tr>
       <tr>
         <td colspan="5">&nbsp;</td>

@@ -143,5 +143,6 @@ function get_month_name($month_idx,$format){
 				12 => 'ธ.ค.'
 			);
 		}
-		return $month_th[$month_idx];
+		$month = $month_idx > 0 ? $month_th[$month_idx] : '';
+		return $month;
 }

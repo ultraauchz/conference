@@ -99,11 +99,9 @@
 		              </label>
 		              <br>
 		              <div class="rest_type_layout col-xs-3">
-		              	<select name="rest_type" class="form-control">
-		              		<option value="">กรุณาระบุ</option>
-		              		<option value="1">ส่วนกลาง  <?php echo $norest_ticket_desc;?></option>
-		              		<option value="2">ส่วนภูมิภาค <?php echo $rest_ticket_desc;?></option>
-		              	</select>
+		              		<?php  if($value->rest_type=='n'){ ?> ส่วนกลาง <? } ?>
+		              		<?php  if($value->rest_type=='y'){ ?> ส่วนภูมิภาค <? } ?>
+		              		<input type="hidden" name="rest_type" value="<?php echo @$value->rest_type;?>">
 		              </div>
 		              <div class="clearfix"></div>              
 	            </div>

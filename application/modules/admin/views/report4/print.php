@@ -46,7 +46,10 @@
 							<td ><?php echo $rvalue->register_code;?></td>
 							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td ><?php echo $rvalue->organization->org_name?></td>
+							<td >
+								<?php echo $rvalue->organization->org_name?>
+								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
+							</td>
 							<td ><?php echo $rvalue->position?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
@@ -76,7 +79,10 @@
 							<td ><?php echo $rvalue->register_code;?></td>
 							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td ><?php echo $rvalue->organization->org_name?></td>
+							<td >
+								<?php echo $rvalue->organization->org_name?>
+								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
+							</td>
 							<td ><?php echo $rvalue->position?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							

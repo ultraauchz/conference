@@ -49,10 +49,15 @@ class Register extends Base_Controller {
 					$data -> mobile_no = strip_tags($_POST["mobile_no"]);
 					$data -> email = strip_tags($_POST["email"]);
 					$data -> rest_type = $_POST['rest_type'];
-					if($data->rest_type != 'y' || $data->rest_type != 'n'){
+					if($data->rest_type != 'y' && $data->rest_type != 'n'){
 						$org = new Organization($_POST['org_id']);
-						$data->rest_type = $org->org_type_id == 2 ? 'y' : 'n';
+						if($org->org_type_id > 0){
+							$data->rest_type = $org->org_type_id == 2 ? 'y' : 'n';
+						}else{
+							$data->rest_type = $data->rest_type == 2 ? 'y' : 'n';
+						}
 					}
+					
 					$data -> food_type = $_POST['food_type'];
 					/*
 					if ($data -> rest_type == 'y') {
@@ -123,19 +128,35 @@ class Register extends Base_Controller {
 				if ($register_id > 0) {
 					$data['value'] = new Register_data($register_id);
 					if ($data['value'] -> rest_type == 'y') {
-						$data['checkin_day'] = substr($data['value'] -> checkin_date, 8, 2);
-						$data['checkin_month'] = substr($data['value'] -> checkin_date, 5, 2);
-						$month_name = get_month_name(number_format($data['checkin_month'], 0), 'F');
-						$data['checkin_month_name'] = $month_name;
-						$data['checkin_year'] = substr($data['value'] -> checkin_date, 0, 4) + 543;
-						$data['checkin_time'] = substr($data['value'] -> checkin_date, 11, 5);
+						if($data['value']->checkin_date > 0){						
+							$data['checkin_day'] = substr($data['value'] -> checkin_date, 8, 2);
+							$data['checkin_month'] = substr($data['value'] -> checkin_date, 5, 2);
+							$month_name = get_month_name(number_format($data['checkin_month'], 0), 'F');
+							$data['checkin_month_name'] = $month_name;
+							$data['checkin_year'] = substr($data['value'] -> checkin_date, 0, 4) + 543;
+							$data['checkin_time'] = substr($data['value'] -> checkin_date, 11, 5);
+						}else{
+							$data['checkin_day'] = '-';
+							$data['checkin_month'] = '-';
+							$data['checkin_month_name'] = '-';
+							$data['checkin_year'] = '-';
+							$data['checkin_time'] = '-';
+						}
 
-						$data['checkout_day'] = substr($data['value'] -> checkout_date, 8, 2);
-						$data['checkout_month'] = substr($data['value'] -> checkout_date, 5, 2);
-						$month_name = get_month_name(number_format($data['checkout_month'], 0), 'F');
-						$data['checkout_month_name'] = $month_name;
-						$data['checkout_year'] = substr($data['value'] -> checkout_date, 0, 4) + 543;
-						$data['checkout_time'] = substr($data['value'] -> checkout_date, 11, 5);
+						if($data['value']->checkout_date > 0 ){
+							$data['checkout_day'] = substr($data['value'] -> checkout_date, 8, 2);
+							$data['checkout_month'] = substr($data['value'] -> checkout_date, 5, 2);
+							$month_name = get_month_name(number_format($data['checkout_month'], 0), 'F');
+							$data['checkout_month_name'] = $month_name;
+							$data['checkout_year'] = substr($data['value'] -> checkout_date, 0, 4) + 543;
+							$data['checkout_time'] = substr($data['value'] -> checkout_date, 11, 5);
+						}else{
+							$data['checkout_day'] = '-';
+							$data['checkout_month'] = '-';
+							$data['checkout_month_name'] = '-';
+							$data['checkout_year'] = '-';
+							$data['checkout_time'] = '-';
+						}
 					} else {
 						$data['checkin_day'] = '-';
 						$data['checkin_month'] = '-';
