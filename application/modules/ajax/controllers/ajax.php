@@ -13,6 +13,12 @@ class Ajax extends Base_Controller {
 		echo $org->org_type_id;
 	}
 	
+	public function get_office_rest_layout(){
+		$org_id = @$_POST['org_id'];
+		$org = new Organization($org_id);
+		echo $org->show_rest;
+	}
+	
 	public function get_office_rest_type_layout() {
 		$org_id = @$_POST['org_id'];
 		$register_id = @$_POST['register_id'];

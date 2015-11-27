@@ -28,8 +28,8 @@
 			  	<label for="organization_id">เพศ </label>
 			  		<select name="gender" class="form-control">
 			  			<option value="">แสดงทั้งหมด</option>
-			  			<option value="m">ชาย</option>
-			  			<option value="f">หญิง</option>
+			  			<option value="m"  <?php if(@$_GET['gender']=='m')echo 'selected="selected"';?>>ชาย</option>
+			  			<option value="f" <?php if(@$_GET['gender']=='f')echo 'selected="selected"';?>>หญิง</option>
 			  		</select> 
 				</div>
 			  </div>
@@ -79,7 +79,7 @@
 							$regist_data = new Register_data();
 							$regist_data = $regist_data->where('register_type = 1');
 							if(@$_GET['gender']!=''){
-								$regist_data = $regist_data->where('gender = '.$_GET['gender']);	
+								$regist_data = $regist_data->where("gender = '".$_GET['gender']."'");
 							}
 							$regist_data = $regist_data->where('org_id = '.$value->id);
 							$regist_data = $regist_data->order_by('gender','asc');
@@ -98,7 +98,14 @@
 							<td ><?php echo $rvalue->position?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
-							<td ><?php echo $rvalue->hotel->hotel_name?></td>
+							<td >
+								<?php if($rvalue->rest_type=='y'){
+									echo $rvalue->hotel->hotel_name;
+								}else{
+									echo 'ไม่เข้าพัก';
+								}
+								?>
+							</td>
 							<td>
 							<?php
 								if($checkin_day == 26){

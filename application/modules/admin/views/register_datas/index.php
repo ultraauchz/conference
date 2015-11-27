@@ -90,15 +90,7 @@
 						<td>							
 							<?php
 							if ($value -> rest_type == 'y') {
-								echo $value -> hotel -> hotel_name . '<br>';
-								if ($value -> rest_with > 0) {
-									$reg_data = new Register_data($value -> rest_with);
-									echo "พักคู่กับ " . $reg_data -> titulation -> titulation_title . $reg_data -> firstname . " " . $reg_data -> lastname;
-								} else if ($value -> rest_with == -1) {
-									echo 'พักคนเดียว';
-								} else {
-									echo 'ไม่ระบุ';
-								}
+								echo $value -> hotel -> hotel_name . '<br>';								
 							} else {
 								echo 'ไม่เข้าพัก';
 							}
@@ -145,7 +137,7 @@
 					<th>รหัสการลงทะเบียน</th>
 					<th>ชื่อผู้ลงทะเบียน</th>					
 					<th>ตำแหน่ง</th>
-					<th>พักคู่กับ</th>
+					<th>การเข้าพัก</th>
 					<th>26</th>
 					<th>27</th>
 					<th>28</th>		        

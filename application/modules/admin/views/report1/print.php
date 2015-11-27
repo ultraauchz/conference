@@ -63,7 +63,14 @@
 							<td ><?php echo $rvalue->position?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
-							<td ><?php echo $rvalue->hotel->hotel_name?></td>
+							<td >
+								<?php if($rvalue->rest_type=='y'){
+									echo $rvalue->hotel->hotel_name;
+								}else{
+									echo 'ไม่เข้าพัก';
+								}
+								?>
+							</td>
 							<td>
 							<?php
 								if($checkin_day == 26){

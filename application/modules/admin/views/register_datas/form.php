@@ -76,7 +76,7 @@
 							echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition), @$value -> org_id, 'class="form-control-other" ', '', false);
 						} else {
 							if ($perm -> can_access_all != 'y') {
-								echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition), @$value -> org_id, 'class="form-control-other" ', '', false);
+								echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition), @$current_user->org_id, 'class="form-control-other" ', '', false);
 							} else {
 								echo form_dropdown('org_id', get_option('id', 'org_name', 'organizations', $ext_condition . ' ORDER BY prefix_code,sortorder ASC '), @$value -> org_id, 'class="form-control-other" ', '--โปรดระบุหน่วยงาน--');
 							}
@@ -102,18 +102,13 @@
 		              <div class="clearfix"></div> 		              
 	            </div>
 	            <hr>
+	            <div id="dvRestLayout">
 	            <div class="form-group">
 		              <label for="exampleInputRestType">การเข้าพัก</label>
 		              <br>
-		              <input type="radio" name="rest_type" value="n" <?php
-						if (@$value -> rest_type == 'n')
-							echo 'checked="checked"';
-					?>> ไม่เข้าพัก 
+		              <input type="radio" name="rest_type" value="n" <?php if (@$value -> rest_type == 'n')echo 'checked="checked"';?>> ไม่เข้าพัก 
 		              &nbsp;&nbsp;&nbsp;		              
-		              <input type="radio" name="rest_type" value="y" <?php
-						if (@$value -> rest_type == 'y')
-							echo 'checked="checked"';
-					?>> เข้าพัก  		
+		              <input type="radio" name="rest_type" value="y" <?php if (@$value -> rest_type == 'y')echo 'checked="checked"';?>> เข้าพัก  		
 		              <div class="clearfix"></div>              
 	            </div>
 	            <hr>
@@ -272,12 +267,12 @@
 	            -->	            
 	            <hr>	            
 	            </div>
+	            
+	            </div>
 	            <div class="form-group">
 		              <label for="exampleInputRestType">อาหาร</label>
 		              <br>
-		              <input type="radio" name="food_type" value="1" <?php
-						if ($value -> food_type == '1' || $value -> food_type == '')
-							echo 'checked="checked"';
+		              <input type="radio" name="food_type" value="1" <?php if ($value -> food_type == '1' || $value -> food_type == '')echo 'checked="checked"';
 					?>> ทั่วไป 
 		              &nbsp;&nbsp;&nbsp;		              
 		              <input type="radio" name="food_type" value="2" <?php
@@ -501,18 +496,17 @@
 		else
 			echo 'show_rest_layout(false);';
 		?>
-		<?php if(@$value->id > 0 ): ?>
-			var org_id = $('[name=org_id]').val();
-			var rest_with_id = 'null';
-			$.post('admin/register_datas/ajax_rest_with_list',{
-				'register_data_id' : '<?php echo @$value -> id; ?>',
-				'org_id' : '<?php echo @$value -> org_id; ?>',
-					'rest_with_id' : '<?php echo @$value -> rest_with; ?>',
-			},function(data){
-					$("#dvRestWith").html(data);
-					$('select.form-control-other').select2();
-			});
-		<?php endif; ?>
+		<?php if(@$value->id > 0 ){ ?>
+			var org_id = '<?php echo @$value->org_id;?>';
+			var rest_type = '<?php echo @$value->rest_type;?>';
+			var hotel_id = '<?php echo @$value->hotel_id;?>';
+			load_office_rest_layout(org_id, rest_type, hotel_id);
+		<?php }else if ($perm -> can_access_all != 'y') { ?>
+			var org_id = '<?php echo @$current_user->org_id;?>';
+			var rest_type = '<?php echo @$value->rest_type;?>';
+			var hotel_id = '<?php echo @$value->hotel_id;?>';			
+			load_office_rest_layout(org_id, rest_type, hotel_id);
+		<?php } ?>
 			function show_rest_layout(is_show) {
 				if (is_show) {
 					$("#dvRest").show();
@@ -532,37 +526,70 @@
 			})
 
 			$("select[name=org_id]").change(function() {
-				load_office_rest_type_layout();		
-				load_office_hotel_list_layout();						
+				var org_id = $(this).val();
+				var rest_type = $('[name=rest_type]').val();
+				var hotel_id = $('select[name=hotel_id]').val();
+				load_office_rest_layout(org_id);								
 			})
-			function load_office_rest_type_layout(){
-				var org_id = $('select[name=org_id]').val();
-				$.post('ajax/get_office_rest_type_layout',{
+			
+			function load_office_rest_layout(org_id, rest_type, hotel_id){
+				$.post('ajax/get_office_rest_layout',{
 					'org_id' : org_id,
+					'rest_type' : rest_type,
 				},function(data){
-					switch(data){
-						case '1':
-							$('input[name=rest_type]').filter('[value=n]').prop('checked', true);
-							show_rest_layout(false);
-						break;
-						case '2':
-							$('input[name=rest_type]').filter('[value=y]').prop('checked', true);
-							show_rest_layout(true);
-						break;
-						default:
-						$('input[name=rest_type]').filter('[value=n]').prop('checked', true);
-						break;
+					if(data=='y'){
+						$('#dvRestLayout').show();
+						load_office_rest_type_layout(org_id, rest_type);		
+						load_office_hotel_list_layout(org_id, hotel_id);						
+					}else{
+						$('#dvRestLayout').hide();
+						$('[name=rest_type][value=n]').attr('checked','checked');
 					}
 				});
 			}
 			
-			function load_office_hotel_list_layout(){
-				var org_id = $('select[name=org_id]').val();
+			function load_office_rest_type_layout(org_id, rest_type){				
+				$.post('ajax/get_office_rest_type_layout',{
+					'org_id' : org_id,
+					'rest_type' : rest_type,
+				},function(data){					
+					if(rest_type != ''){
+						$('input[name=rest_type][value='+rest_type+']').attr('checked', 'checked');
+						if(rest_type=='y'){
+							show_rest_layout(true);
+						}else{
+							show_rest_layout(false);
+						}
+					}else{
+						$('input[name=rest_type][value=n]').removeAttr('checked');
+						$('input[name=rest_type][value=y]').removeAttr('checked');
+						switch(data){
+							case '1':
+								$('input[name=rest_type][value=n]').attr('checked', 'checked');
+								show_rest_layout(false);
+							break;
+							case '2':
+								$('input[name=rest_type][value=y]').attr('checked', 'checked');
+								show_rest_layout(true);
+								if(rest_type != ''){
+									$('input[name=rest_type][value='+rest_type+']').attr('checked', 'checked');
+								}
+							break;
+							default:
+							$('input[name=rest_type][value=n]').attr('checked', 'checked');
+							break;
+						}	
+					}									
+				});
+			}
+			
+			function load_office_hotel_list_layout(org_id, hotel_id){				
 				$.post('ajax/get_office_hotel_list_layout',{
 					'org_id' : org_id,
-					'hotel_id' : '',
+					'hotel_id' : hotel_id,
 				},function(data){
 					$('.dvHotelList').html(data);
+					if(hotel_id!='')$('select[name=hotel_id]').val(hotel_id);
 				});
 			}
 		})

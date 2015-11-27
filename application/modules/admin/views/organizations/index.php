@@ -37,6 +37,7 @@
 					<tr>
 						<th style="width:50px;">ลำดับ</th>
 						<th>รหัส</th>
+						<th>รหัลลำดับ</th>
 						<th>ชื่อหน่วยงาน</th>
 						<th>โควต้า</th>
 						<th>ลงทะเบียนแล้ว</th>
@@ -51,6 +52,7 @@
 					<tr>
 						<td><?php echo $no;?></td>
 						<td><?php echo $row->prefix_code?></td>
+						<td><?php echo $row->sortorder?></td>
 						<td><?php echo $row->org_name?></td>
 						<td><?php echo $row->max_participants;?></td>
 						<td></td>
@@ -71,6 +73,7 @@
 			      <tr>
 					<th style="width:50px;">ลำดับ</th>
 					<th>รหัส</th>
+					<th>รหัลลำดับ</th>
 					<th>ชื่อหน่วยงาน</th>
 					<th>โควต้า</th>
 					<th>ลงทะเบียนแล้ว</th>

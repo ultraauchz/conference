@@ -11,7 +11,7 @@ if(!function_exists('get_option')) {
 		foreach($variable->result() as $item) {
 			$option[$item->{$value}] = $item->{$text};
 		}
-		return $option;
+		return @$option;
 	}
 }
 

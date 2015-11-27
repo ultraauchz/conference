@@ -18,6 +18,10 @@
 		              <?php echo form_dropdown("prefix_code",get_option("code","title","(select code,CONCAT(CODE , ':::' , prefix_name) title from code_prefixes)code_prefixes"," ORDER BY code ASC"), @$rs->prefix_code,"class=\"form-control-other\"  required=\"required\" ","-- ระบุรหัสประเภทหน่วยงาน --","");?>
 	            </div>
 	            <div class="form-group">
+		              <label>ลำดับ</label>
+		              <input type="text" name="sortorder" class="form-control" size="4" value="<?php echo @$rs->sortorder;?>">
+	            </div>
+	            <div class="form-group">
 		              <label>ประเภทหน่วยงาน</label>
 		              <?php echo form_dropdown("org_type_id",get_option("id","organization_type_title","organization_types"," ORDER BY id ASC"), @$rs->org_type_id,"class=\"form-control-other\"  required=\"required\" ",'',"false");?>
 	            </div>
