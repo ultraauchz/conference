@@ -33,6 +33,15 @@
 			  		</select> 
 				</div>
 			  </div>
+			  <div>
+			  	<div class="col-xs-2">
+			  	<label for="organization_id">เรียงลำดับ </label>
+			  		<select name="order_by" class="form-control">
+			  			<option value="" <?php if(@$_GET['order_by']=='')echo 'selected="selected"';?>>รหัสลงทะเบียน</option>
+			  			<option value="gender"  <?php if(@$_GET['order_by']=='gender')echo 'selected="selected"';?>>เพศ</option>
+			  		</select> 
+				</div>
+			  </div>
 			  <div class="col-xs-3">
 			  	<br>
 			  	<input type="submit" name="b" class="btn btn-primary" value="แสดงรายการ">
@@ -45,8 +54,8 @@
 			<br>
 			<?php if(@$_GET){ ?>
 			<div align="right">
-				<a href="admin/reports/report1?act=print&org_id=<?php echo @$_GET['org_id'];?>" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> พิมพ์หน้านี้</a>
-				<a href="admin/reports/report1?act=export&org_id=<?php echo @$_GET['org_id'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
+				<a href="admin/reports/report1?act=print&org_id=<?php echo @$_GET['org_id'];?>&gender=<?php echo @$_GET['gender'];?>&order_by=<?php echo @$_GET['order_by'];?>" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> พิมพ์หน้านี้</a>
+				<a href="admin/reports/report1?act=export&org_id=<?php echo @$_GET['org_id'];?>&gender=<?php echo @$_GET['gender'];?>&order_by=<?php echo @$_GET['order_by'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
 			</div>
 			<hr>			
 					<?php 
@@ -67,6 +76,7 @@
 							<td>ชื่อ - นามสกุล</td>
 							<td>เพศ</td>
 							<td>ตำแหน่ง</td>
+                            <td>อื่นๆ หน่วยงาน</td>
 							<td>เบอร์มือถือ</td>
 							<td>อีเมล์</td>							
 							<td>โรงแรม</td>							
@@ -82,8 +92,11 @@
 								$regist_data = $regist_data->where("gender = '".$_GET['gender']."'");
 							}
 							$regist_data = $regist_data->where('org_id = '.$value->id);
-							$regist_data = $regist_data->order_by('gender','asc');
-							$regist_data = $regist_data->order_by('register_code','asc');
+							if(@$_GET['order_by']=='gender'){
+								$regist_data = $regist_data->order_by('gender','asc');
+							}else{
+								$regist_data = $regist_data->order_by('register_code','asc');
+							}
 							$regist_data = $regist_data->get();
 							foreach($regist_data as $rkey => $rvalue){
 								$ino++;
@@ -93,10 +106,10 @@
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
 							<td ><?php echo $rvalue->register_code;?></td>
-							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
+							<td align="left"><?php echo $rvalue->titulation->titulation_title.$rvalue->titulation_other.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
 							<td ><?php echo $rvalue->position?></td>
-							<td ><?php echo $rvalue->mobile_no?></td>
+							<td ><?php echo $rvalue->org_other?></td>
 							<td ><?php echo $rvalue->email?></td>							
 							<td >
 								<?php if($rvalue->rest_type=='y'){

@@ -31,6 +31,15 @@
 			  			<option value="f" <?php if(@$_GET['gender']=='f')echo 'selected="selected"';?>>หญิง</option>
 			  		</select> 
 				</div>
+				<div>
+			  	<div class="col-xs-2">
+			  	<label for="organization_id">เรียงลำดับ </label>
+			  		<select name="order_by" class="form-control">
+			  			<option value="" <?php if(@$_GET['order_by']=='')echo 'selected="selected"';?>>รหัสลงทะเบียน</option>
+			  			<option value="gender"  <?php if(@$_GET['order_by']=='gender')echo 'selected="selected"';?>>เพศ</option>
+			  		</select> 
+				</div>
+			  </div>
 			  </div>
 			  <div>
 			  <div class="col-xs-3">
@@ -45,8 +54,8 @@
 			<br>
 			<?php if(@$_GET){ ?>
 			<div align="right">
-				<a href="admin/reports/report4?act=print&rest_type=<?php echo @$_GET['rest_type'];?>&gender=<?php echo @$_GET['gender'];?>" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> พิมพ์หน้านี้</a>
-				<a href="admin/reports/report4?act=export&rest_type=<?php echo @$_GET['rest_type'];?>&gender=<?php echo @$_GET['gender'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
+				<a href="admin/reports/report4?act=print&rest_type=<?php echo @$_GET['rest_type'];?>&gender=<?php echo @$_GET['gender'];?>&order_by=<?php echo @$_GET['order_by'];?>" class="btn btn-info" target="_blank"><i class="fa fa-print"></i> พิมพ์หน้านี้</a>
+				<a href="admin/reports/report4?act=export&rest_type=<?php echo @$_GET['rest_type'];?>&gender=<?php echo @$_GET['gender'];?>&order_by=<?php echo @$_GET['order_by'];?>" class="btn btn-info" target="_blank"><i class="fa fa-file-excel-o"></i> ส่งออกเป็น Excel</a>
 			</div>
 			<hr>			
 					<table id="example1" class="table table-bordered table-striped table-hover table_data">
@@ -55,8 +64,8 @@
 							<td>รหัสลงทะเบียน</td>
 							<td>ชื่อ - นามสกุล</td>
 							<td>เพศ</td>
-							<td>หน่วยงาน</td>
 							<td>ตำแหน่ง</td>
+							<td>หน่วยงาน</td>
 							<td>เบอร์มือถือ</td>
 							<td>อีเมล์</td>							
 						</tr>
@@ -72,8 +81,11 @@
 								$regist_data = $regist_data->where("gender = '".$_GET['gender']."'");	
 							}
 							$regist_data = $regist_data->where("rest_type = 'n'");
-							$regist_data = $regist_data->order_by('gender','asc');
-							$regist_data = $regist_data->order_by('register_code','asc');
+							if(@$_GET['order_by']=='gender'){
+								$regist_data = $regist_data->order_by('gender','asc');
+							}else{
+								$regist_data = $regist_data->order_by('register_code','asc');
+							}
 							$regist_data = $regist_data->get();
 							foreach($regist_data as $rkey => $rvalue){
 								$ino++;
@@ -81,13 +93,10 @@
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
 							<td ><?php echo $rvalue->register_code;?></td>
-							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
+							<td align="left"><?php echo $rvalue->titulation->titulation_title.$rvalue->titulation_other.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td >
-								<?php echo $rvalue->organization->org_name?>
-								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
-							</td>
-							<td ><?php echo $rvalue->position?></td>
+						  <td ><?php echo $rvalue->position?></td>
+							<td ><?php echo $rvalue->organization->org_name?> <?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
 						</tr>
@@ -114,13 +123,10 @@
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
 							<td ><?php echo $rvalue->register_code;?></td>
-							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
+							<td align="left"><?php echo $rvalue->titulation->titulation_title.$rvalue->titulation_other.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td >
-								<?php echo $rvalue->organization->org_name?>
-								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
-							</td>
 							<td ><?php echo $rvalue->position?></td>
+							<td ><?php echo $rvalue->organization->org_name?> <?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
 						</tr>

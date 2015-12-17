@@ -18,8 +18,8 @@
 							<td>รหัสลงทะเบียน</td>
 							<td>ชื่อ - นามสกุล</td>
 							<td>เพศ</td>
-							<td>หน่วยงาน</td>
 							<td>ตำแหน่ง</td>
+							<td>หน่วยงาน</td>
 							<td>เบอร์มือถือ</td>
 							<td>อีเมล์</td>							
 						</tr>
@@ -35,8 +35,11 @@
 								$regist_data = $regist_data->where("gender = '".$_GET['gender']."'");
 							}
 							$regist_data = $regist_data->where("rest_type = 'n'");
-							$regist_data = $regist_data->order_by('gender','asc');
-							$regist_data = $regist_data->order_by('register_code','asc');
+							if(@$_GET['order_by']=='gender'){
+								$regist_data = $regist_data->order_by('gender','asc');
+							}else{
+								$regist_data = $regist_data->order_by('register_code','asc');
+							}
 							$regist_data = $regist_data->get();
 							foreach($regist_data as $rkey => $rvalue){
 								$ino++;
@@ -44,13 +47,10 @@
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
 							<td ><?php echo $rvalue->register_code;?></td>
-							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
+							<td align="left"><?php echo $rvalue->titulation->titulation_title.$rvalue->titulation_other.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td >
-								<?php echo $rvalue->organization->org_name?>
-								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
-							</td>
 							<td ><?php echo $rvalue->position?></td>
+							<td ><?php echo $rvalue->organization->org_name?> <?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
 						</tr>
@@ -77,13 +77,10 @@
 						<tr>
 							<td align="center"><?php echo $ino;?></td>
 							<td ><?php echo $rvalue->register_code;?></td>
-							<td align="center"><?php echo $rvalue->titulation->titulation_title.$rvalue->firstname.' '.$rvalue->lastname;?></td>
+							<td align="left"><?php echo $rvalue->titulation->titulation_title.$rvalue->titulation_other.$rvalue->firstname.' '.$rvalue->lastname;?></td>
 							<td ><?php echo $gender = $rvalue->gender == 'm' ? 'ชาย' : 'หญิง';?></td>
-							<td >
-								<?php echo $rvalue->organization->org_name?>
-								<?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?>
-							</td>
 							<td ><?php echo $rvalue->position?></td>
+							<td ><?php echo $rvalue->organization->org_name?> <?php echo $org_other = $rvalue->org_other !='' ? ':::'.$rvalue->org_other : '';?></td>
 							<td ><?php echo $rvalue->mobile_no?></td>
 							<td ><?php echo $rvalue->email?></td>							
 						</tr>
