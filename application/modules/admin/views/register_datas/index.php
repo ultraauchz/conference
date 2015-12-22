@@ -63,6 +63,7 @@
 					<th>26</th>
 					<th>27</th>
 					<th>28</th>			        
+					<th>29</th>
 			        <th class="th_manage">Manage</th>
 			      </tr>
 			    </thead>
@@ -81,7 +82,7 @@
 						<td align="center"><?php echo $no; ?></td>
 						<td align="center" style="background:#fbffa3;"><?php echo $value -> register_code; ?></td>
 						<?php if($value->firstname==''){ ?>
-						<td colspan="6" style="text-align:center;">--- ว่าง ---</td>
+						<td colspan="7" style="text-align:center;">--- ว่าง ---</td>
 						<?php
 						}else{
 						?> 
@@ -105,14 +106,21 @@
 						</td>
 						<td>
 							<?php
-								if($checkin_day == 27 || $checkout_day >= 27){
+								if($checkin_day <= 27 && $checkout_day >= 27){
 							?>
 							<i class="glyphicon glyphicon-ok"></i>
 							<?php } ?>
 						</td>
 						<td>
 							<?php
-								if($checkin_day == 28 || $checkout_day == 28){
+								if($checkin_day <= 28 && $checkout_day >= 28){
+							?>
+							<i class="glyphicon glyphicon-ok"></i>
+							<?php } ?>
+						</td>
+						<td>
+							<?php
+								if($checkin_day == 29 || $checkout_day == 29){
 							?>
 							<i class="glyphicon glyphicon-ok"></i>
 							<?php } ?>
@@ -140,7 +148,8 @@
 					<th>การเข้าพัก</th>
 					<th>26</th>
 					<th>27</th>
-					<th>28</th>		        
+					<th>28</th>		
+					<th>29</th>        
 			        <th class="th_manage">Manage</th>
 			      </tr>
 			    </tfoot>

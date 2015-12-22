@@ -38,7 +38,8 @@
 							<td>โรงแรม</td>							
 							<td>26</td>
 							<td>27</td>
-							<td>28</td>						
+							<td>28</td>
+							<td>29</td>						
 						</tr>
 					<?
 							$ino =0;
@@ -85,14 +86,21 @@
 						</td>
 						<td>
 							<?php
-								if($checkin_day == 27 || $checkout_day >= 27){
+								if($checkin_day <= 27 && $checkout_day >= 27){
 							?>
 							X
 							<?php } ?>
 						</td>
 						<td>
 							<?php
-								if($checkin_day == 28 || $checkout_day == 28){
+								if($checkin_day <= 28 && $checkout_day == 28){
+							?>
+							X
+							<?php } ?>
+						</td>
+						<td>
+							<?php
+								if($checkin_day <= 29 || $checkout_day == 29){
 							?>
 							X
 							<?php } ?>

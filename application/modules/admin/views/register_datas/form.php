@@ -153,6 +153,10 @@
 								if (@$checkin_day == 28)
 									echo 'selected="selected"';
 							?>>28</option>
+							<option value="29" <?php
+								if (@$checkin_day == 29)
+									echo 'selected="selected"';
+							?>>29</option>
 			              </select>
 			              <span class="input-group-addon">เดือน</span>
 			              <select name="checkin_month" class="form-control input-group-addon">
@@ -213,6 +217,10 @@
 								if (@$checkout_day == 28)
 									echo 'selected="selected"';
 							?>>28</option>
+							<option value="29" <?php
+								if (@$checkout_day == 29)
+									echo 'selected="selected"';
+							?>>29</option>
 			              </select>
 			              <span class="input-group-addon">เดือน</span>
 			              <select name="checkout_month" class="form-control input-group-addon">
