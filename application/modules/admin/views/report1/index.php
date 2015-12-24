@@ -136,14 +136,14 @@
 						</td>
 						<td>
 							<?php
-								if($checkin_day <= 28 && $checkout_day == 28){
+								if($checkin_day <= 28 && $checkout_day >= 28){
 							?>
 							X
 							<?php } ?>
 						</td>
 						<td>
 							<?php
-								if($checkin_day <= 29 || $checkout_day == 29){
+								if($checkin_day == 29 || $checkout_day == 29){
 							?>
 							X
 							<?php } ?>
